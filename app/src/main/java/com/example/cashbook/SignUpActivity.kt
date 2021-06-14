@@ -5,16 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 
-class MainActivity : AppCompatActivity()
-{
+class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_sign_up)
     }
 
-
-    public fun navToSignUp(view: View){
-        val intent : Intent = Intent(this,SignUpActivity::class.java)
+    public fun navTohome(view: View){
+        val intent : Intent = Intent(this,MainActivity::class.java)
         startActivity(intent)
 
     }

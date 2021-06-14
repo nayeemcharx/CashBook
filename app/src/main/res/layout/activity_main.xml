@@ -4,15 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3b5998"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="316dp"
+        android:layout_height="49dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint= "Account Number"
+        android:inputType="phone"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.326" />
+
+    <EditText
+        android:id="@+id/editTextNumberPassword"
+        android:layout_width="316dp"
+        android:layout_height="49dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint=" PIN"
+        android:inputType="numberPassword"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPhone"
+        app:layout_constraintVertical_bias="0.067" />
+
+    <Button
+        android:id="@+id/log_in_button"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:text="Log In"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="#4267b2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberPassword"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <Button
+        android:id="@+id/sign_up"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="104dp"
+        android:text="Sign Up"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="#4267b2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="navToSignUp"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="54dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="57dp"
+        android:background="#3b5998"
+        android:text="   or"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FFFEFE"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/sign_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/log_in_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
