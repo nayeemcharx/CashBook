@@ -13,9 +13,16 @@ class MainActivity : AppCompatActivity()
     }
 
 
-    public fun navToSignUp(view: View){
+     public fun navToSignUp(view: View){
         val intent : Intent = Intent(this,SignUpActivity::class.java)
         startActivity(intent)
 
     }
+    public fun navToHome(view: View){
+        val intent : Intent = Intent(this,HomeActivity::class.java)
+        startActivity(intent)
+
+    }
+
+
 }

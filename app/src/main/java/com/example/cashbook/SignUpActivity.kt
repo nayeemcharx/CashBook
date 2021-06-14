@@ -11,8 +11,8 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
     }
 
-    public fun navTohome(view: View){
-        val intent : Intent = Intent(this,MainActivity::class.java)
+    public fun navToLogIn(view: View) {
+        val intent: Intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
 
     }
