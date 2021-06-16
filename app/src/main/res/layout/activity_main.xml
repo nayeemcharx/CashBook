@@ -8,13 +8,13 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/email_adress"
         android:layout_width="316dp"
         android:layout_height="49dp"
         android:background="#ffffff"
         android:ems="10"
-        android:hint= "Account Number"
-        android:inputType="phone"
+        android:hint= "Email Adress"
+        android:inputType="textEmailAddress"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         android:textStyle="bold"
@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.326" />
 
     <EditText
-        android:id="@+id/editTextNumberPassword"
+        android:id="@+id/pin"
         android:layout_width="316dp"
         android:layout_height="49dp"
         android:background="#ffffff"
@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhone"
+        app:layout_constraintTop_toBottomOf="@+id/email_adress"
         app:layout_constraintVertical_bias="0.067" />
 
     <Button
@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberPassword"
+        app:layout_constraintTop_toBottomOf="@+id/pin"
         app:layout_constraintVertical_bias="0.113"
         android:onClick="navToHome"/>
 
@@ -91,5 +91,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/log_in_button" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

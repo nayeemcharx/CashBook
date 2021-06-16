@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "554511682379",
+    "project_id": "cashbook-1cd41",
+    "storage_bucket": "cashbook-1cd41.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554511682379:android:0d8a8a234fd9c282f2b6ce",
+        "android_client_info": {
+          "package_name": "com.example.cashbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554511682379-tm55f1boq246dg0nqq9afkm15mcv6he2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATSJr4-L2CchjXvBEWPS2TBUM1-e2SNks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554511682379-tm55f1boq246dg0nqq9afkm15mcv6he2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554511682379:android:7c416a3bb85d7c7cf2b6ce",
+        "android_client_info": {
+          "package_name": "com.example.pirpleproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554511682379-tm55f1boq246dg0nqq9afkm15mcv6he2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATSJr4-L2CchjXvBEWPS2TBUM1-e2SNks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554511682379-tm55f1boq246dg0nqq9afkm15mcv6he2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
