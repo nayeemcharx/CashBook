@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity()
 {
@@ -32,10 +33,15 @@ class MainActivity : AppCompatActivity()
 
 
     public fun navToHome(view: View){
-        //auth.createUserWithEmailAndPassword("something@gmail.com","333333")
         val emailTxt=email.text.toString()
         val pinTxt=pin.text.toString()
-        login(emailTxt,pinTxt)
+        if(emailTxt.isEmpty() || pinTxt.isEmpty())
+        {
+            Toast.makeText(baseContext, "Please fill in the information",
+                    Toast.LENGTH_SHORT).show()
+        }
+        else
+            login(emailTxt,pinTxt)
 
     }
 
