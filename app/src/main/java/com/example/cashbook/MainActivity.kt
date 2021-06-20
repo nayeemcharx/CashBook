@@ -19,6 +19,17 @@ class MainActivity : AppCompatActivity()
     private lateinit var signuptxt:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            // User is signed in
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        else {
+            // User is signed out
+            Log.d("test", "onAuthStateChanged:signed_out")
+        }
         setContentView(R.layout.activity_main)
         email= findViewById(R.id.email_adress)
         pin=findViewById(R.id.pin)

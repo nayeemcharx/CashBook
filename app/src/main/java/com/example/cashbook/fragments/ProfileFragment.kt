@@ -88,7 +88,7 @@ class ProfileFragment(activity: Activity?) : Fragment()
 
         logOutButton=view.findViewById(R.id.log_out_button)
 
-        test=view.findViewById(R.id.test)
+//        test=view.findViewById(R.id.test)
         logOutButton.setOnClickListener{
             auth.signOut()
             requireActivity().run{
