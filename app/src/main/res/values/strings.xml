@@ -3,5 +3,6 @@
     <string name="home_name">Home Page</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="privacy_text">By creating an account, you agree to the \nTerms and Use and Privacy Policy</string>
 
 </resources>

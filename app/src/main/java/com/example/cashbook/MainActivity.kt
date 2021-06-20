@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
@@ -14,21 +15,22 @@ class MainActivity : AppCompatActivity()
     private lateinit var email: EditText
     private lateinit var pin: EditText
     private lateinit var auth: FirebaseAuth
+    private lateinit var signuptxt:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         email= findViewById(R.id.email_adress)
         pin=findViewById(R.id.pin)
         auth= FirebaseAuth.getInstance()
-    }
-
-
-     public fun navToSignUp(view: View)
-     {
-         val intent : Intent = Intent(this,SignUpActivity::class.java)
-         startActivity(intent)
+        signuptxt=findViewById(R.id.textSignUP)
+        signuptxt.setOnClickListener{
+            val intent : Intent = Intent(this,SignUpActivity::class.java)
+            startActivity(intent)
+        }
 
     }
+
+
     public fun navToHome(view: View){
         //auth.createUserWithEmailAndPassword("something@gmail.com","333333")
         val emailTxt=email.text.toString()

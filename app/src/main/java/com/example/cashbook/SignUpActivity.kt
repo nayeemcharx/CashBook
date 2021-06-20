@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
@@ -17,6 +18,7 @@ class SignUpActivity : AppCompatActivity()
     private lateinit var pin:EditText
     private lateinit var confirmPin:EditText
     private lateinit var auth:FirebaseAuth
+    private lateinit var cancel:TextView
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -26,6 +28,12 @@ class SignUpActivity : AppCompatActivity()
         pin=findViewById(R.id.pinSignUp)
         confirmPin=findViewById(R.id.ConfirmPin)
         auth= FirebaseAuth.getInstance()
+        cancel=findViewById(R.id.textLogin)
+        cancel.setOnClickListener{
+            val intent: Intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
     public fun signUpCLick(view: View) {
 
@@ -64,10 +72,10 @@ class SignUpActivity : AppCompatActivity()
             ).show()
         }
     }
-    public fun navToLogIn(view: View)
-    {
-        val intent: Intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
+//    public fun navToLogIn(view: View)
+//    {
+//        val intent: Intent = Intent(this, MainActivity::class.java)
+//        startActivity(intent)
+//        finish()
+//    }
 }
