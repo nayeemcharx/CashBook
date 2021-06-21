@@ -33,7 +33,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setUpTabs(){
         val adapter=ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(ProfileFragment(this),title = "Profile")
-        adapter.addFragment(TransferFragment(),title = "Transfer")
+        adapter.addFragment(TransferFragment(this),title = "Transfer")
         adapter.addFragment(WithdrawFragment(),title = "withdraw")
         adapter.addFragment(HistoryFragment(),title = "History")
 

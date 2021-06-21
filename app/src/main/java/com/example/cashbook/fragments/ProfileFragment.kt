@@ -17,6 +17,7 @@ import com.example.cashbook.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import org.w3c.dom.Text
 
 
 class ProfileFragment(activity: Activity?) : Fragment()
@@ -25,7 +26,8 @@ class ProfileFragment(activity: Activity?) : Fragment()
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private lateinit var logOutButton:Button
-    private lateinit var test:TextView
+    private lateinit var balance:TextView
+    private lateinit var fullName:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,6 +48,8 @@ class ProfileFragment(activity: Activity?) : Fragment()
         super.onViewCreated(view, savedInstanceState)
         auth= FirebaseAuth.getInstance()
         db= FirebaseFirestore.getInstance()
+        balance=view.findViewById(R.id.balance)
+        fullName=view.findViewById(R.id.user)
         val currentUser = auth.currentUser
         val userID:String=currentUser!!.uid
         val email:String = currentUser.email!!
@@ -60,12 +64,12 @@ class ProfileFragment(activity: Activity?) : Fragment()
             {
                 val fullname=snapshot.getString("full_name")
                 val date=snapshot.getDate("creation_date")
-                var balance=snapshot.getDouble("balance")
+                var bal=snapshot.getDouble("balance")
 
                 if(fullname!=null)
                 {
                     Log.d("full name",fullname)
-                    //textview.setText(fullname)
+                    fullName.setText(fullname)
                 }
                 if(date!=null)
                 {
@@ -73,12 +77,13 @@ class ProfileFragment(activity: Activity?) : Fragment()
                     //textview.setText(date.toString)
                     // or modifying how date looks like instead of like "June 20, 2021 at 4:05:24 PM UTC+6"
                 }
-                if(balance!=null)
+                if(bal!=null)
                 {
-                    balance = balance + 1
-                    //textview.setText(balance.toString)
-                    Log.d("balance", balance.toString())
+                    Log.d("balance", bal.toString())
+                    balance.setText(bal.toString())
+
                 }
+
             }
             else
             {

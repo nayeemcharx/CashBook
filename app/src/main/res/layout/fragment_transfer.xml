@@ -27,7 +27,7 @@
 
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/receiver_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
@@ -60,10 +60,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email"  />
+        app:layout_constraintTop_toBottomOf="@id/receiver_email"  />
 
     <EditText
-        android:id="@+id/amount"
+        android:id="@+id/transfer_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
@@ -72,7 +72,7 @@
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/alike_angular"
         android:hint="Amount"
-        android:inputType="number|textEmailAddress"
+        android:inputType="number"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -97,7 +97,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/amount"  />
+        app:layout_constraintTop_toBottomOf="@id/transfer_amount"  />
 
     <EditText
         android:id="@+id/note"
