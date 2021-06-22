@@ -15,8 +15,8 @@
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
 
         <LinearLayout
@@ -116,15 +116,17 @@
         </LinearLayout>
 
 
-        <androidx.cardview.widget.CardView
+        <io.armcha.elasticview.ElasticView
+            android:id="@+id/testt"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="22dp"
             android:layout_marginBottom="23dp"
-            android:background="@color/white"
-            app:cardCornerRadius="8dp">
+            app:cardCornerRadius="8dp"
+            app:flexibility="10"
+            app:cardElevation="1dp">
 
 
             <LinearLayout
@@ -196,7 +198,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
                         android:fontFamily="@font/alike_angular"
                         android:lineSpacingExtra="7sp"
                         android:text="$1459"
@@ -225,7 +227,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
                         android:fontFamily="@font/alike_angular"
                         android:lineSpacingExtra="7sp"
                         android:text="$2730"
@@ -273,21 +275,22 @@
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </io.armcha.elasticview.ElasticView>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/log_out_button"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
-            android:background="@drawable/button_colour2"
+            android:background="@drawable/button_background_color2"
             android:fontFamily="@font/alike_angular"
             android:padding="10dp"
             android:text="Sign out"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="20sp" />
+
 
 
     </LinearLayout>

@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity()
         signuptxt.setOnClickListener{
             val intent : Intent = Intent(this,SignUpActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
     }

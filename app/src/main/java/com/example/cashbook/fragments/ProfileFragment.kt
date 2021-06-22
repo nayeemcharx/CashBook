@@ -17,6 +17,7 @@ import com.example.cashbook.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import io.armcha.elasticview.ElasticView
 import org.w3c.dom.Text
 
 
@@ -92,8 +93,6 @@ class ProfileFragment(activity: Activity?) : Fragment()
         }
 
         logOutButton=view.findViewById(R.id.log_out_button)
-
-//        test=view.findViewById(R.id.test)
         logOutButton.setOnClickListener{
             auth.signOut()
             requireActivity().run{

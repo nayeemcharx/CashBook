@@ -222,7 +222,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear2"
-        android:background="@drawable/button_colour2"
+        android:background="@drawable/button_background_color2"
         android:fontFamily="@font/alike_angular"
         android:layout_marginTop="10dp"
 

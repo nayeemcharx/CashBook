@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Cashbook</string>
     <string name="home_name">Home Page</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="privacy_text">By creating an account, you agree to the \nTerms and Use and Privacy Policy</string>
+    <string name="sign_up"><u>Sign Up</u></string>
+    <string name="log_in_str"><u>Login</u></string>
 
 </resources>

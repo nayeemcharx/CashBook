@@ -64,16 +64,17 @@ class TransferFragment(activity: Activity) : Fragment() {
 
                                 transfer(sender,receiver,amount)
                                 updateHistory(sender,receiver,amount)
+                                show(amount.toString()+" Tk. transfered to "+receiver)
                             }
                             else {
-                                show("Please select a vaild email")
+                                show("Please fill in a valid email address")
                             }
                         }
                     }
                     else
                     {
-                        Log.d("tett","tette")
-                        show("why does this not work")
+                        activity?.runOnUiThread{show("Out of balance")}
+
                     }
                     // Success
                     null
