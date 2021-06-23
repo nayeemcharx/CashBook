@@ -1,26 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.WithdrawFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.WithdrawFragment"
+    android:background="@drawable/background_colour_1">
 
-    <RelativeLayout
+
+    <TextView
+        android:id="@+id/withdraw_to"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="22dp"
+        android:fontFamily="@font/alike_angular"
+        android:text="Agent Account :"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/withdraw_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="22dp"
+        android:backgroundTint="#FFFFFF"
+        android:fontFamily="@font/alike_angular"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/withdraw_to">
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/amountTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="22dp"
+        android:fontFamily="@font/alike_angular"
+        android:text="Amount :"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/withdraw_email"  />
+
+    <EditText
+        android:id="@+id/withdraw_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="22dp"
+        android:backgroundTint="#FFFFFF"
+        android:fontFamily="@font/alike_angular"
+        android:hint="Amount"
+        android:inputType="number|textEmailAddress"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amountTxt">
+
+    </EditText>
+
+
+    <TextView
+        android:id="@+id/noteTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="22dp"
+        android:fontFamily="@font/alike_angular"
+        android:text="Note :"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/withdraw_amount"  />
+
+    <EditText
+        android:id="@+id/withdraw_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="22dp"
+        android:backgroundTint="#FFFFFF"
+        android:fontFamily="@font/alike_angular"
+        android:inputType="textShortMessage"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/noteTxt">
+
+    </EditText>
+
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/withdraw_note"
+        android:orientation="horizontal"
+        >
+
 
         <TextView
+            android:id="@+id/current_balance_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Withdraw"
-            android:textColor="@color/black"
-            android:textSize="24sp">
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="22dp"
+            android:fontFamily="@font/alike_angular"
+            android:text="Current Balance :"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-        </TextView>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </View>
+
+        <TextView
+            android:id="@+id/current_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/alike_angular"
+            android:text="$1500"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear1"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:id="@+id/balance_after_transaction_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="22dp"
+            android:fontFamily="@font/alike_angular"
+            android:text="Balance after Withdraw :"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </View>
+
+        <TextView
+            android:id="@+id/balance_after_withdraw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/alike_angular"
+            android:text="$500"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/transfer_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Withdraw"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear2"
+        android:background="@drawable/button_background_color2"
+        android:fontFamily="@font/alike_angular"
+        android:layout_marginTop="10dp"
+
+        >
+
+    </androidx.appcompat.widget.AppCompatButton>
 
 
 
-    </RelativeLayout>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

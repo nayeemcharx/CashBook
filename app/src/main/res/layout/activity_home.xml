@@ -16,7 +16,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            app:tabBackground="@color/colourPrimary"
+            app:tabBackground="@color/background_color3"
             app:tabGravity="fill"
             app:tabInlineLabel="false"
             app:tabMode="fixed"

@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/transfer_to"
+        android:id="@+id/withdraw_to"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
@@ -42,7 +42,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transfer_to">
+        app:layout_constraintTop_toBottomOf="@id/withdraw_to">
 
     </EditText>
 
@@ -100,7 +100,7 @@
         app:layout_constraintTop_toBottomOf="@id/transfer_amount"  />
 
     <EditText
-        android:id="@+id/note"
+        android:id="@+id/withdraw_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/note"
+        app:layout_constraintTop_toBottomOf="@id/withdraw_note"
         android:orientation="horizontal"
         >
 
@@ -197,7 +197,7 @@
         </View>
 
         <TextView
-            android:id="@+id/balance_after_transaction"
+            android:id="@+id/balance_after_withdraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
