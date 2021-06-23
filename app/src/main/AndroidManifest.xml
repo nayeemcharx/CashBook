@@ -11,7 +11,7 @@
         android:theme="@style/Theme.Cashbook">
         <activity
             android:name=".HomeActivity"
-            android:label="@string/home_name"></activity>
+            android:label="@string/home_name" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

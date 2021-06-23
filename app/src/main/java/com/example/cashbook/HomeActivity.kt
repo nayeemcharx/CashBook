@@ -35,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
         adapter.addFragment(ProfileFragment(this),title = "Profile")
         adapter.addFragment(TransferFragment(this),title = "Transfer")
         adapter.addFragment(WithdrawFragment(),title = "withdraw")
-        adapter.addFragment(HistoryFragment(),title = "History")
+        adapter.addFragment(HistoryFragment(this),title = "History")
 
 
 
