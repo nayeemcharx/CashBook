@@ -130,7 +130,7 @@
 
 
         <TextView
-            android:id="@+id/current_balance_txt"
+            android:id="@+id/current_balance__withdraw_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
@@ -150,14 +150,14 @@
         </View>
 
         <TextView
-            android:id="@+id/current_balance"
+            android:id="@+id/current_balance_withdraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="35dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/alike_angular"
-            android:text="$1500"
+            android:text="Tk-"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -177,7 +177,7 @@
 
 
         <TextView
-            android:id="@+id/balance_after_transaction_txt"
+            android:id="@+id/balance_after_withdraw_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
@@ -203,7 +203,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/alike_angular"
-            android:text="$500"
+            android:text="Tk-"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -212,7 +212,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/transfer_button"
+        android:id="@+id/withdraw_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

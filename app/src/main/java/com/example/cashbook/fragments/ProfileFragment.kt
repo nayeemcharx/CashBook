@@ -21,7 +21,7 @@ import io.armcha.elasticview.ElasticView
 import org.w3c.dom.Text
 
 
-class ProfileFragment(activity: Activity?) : Fragment()
+class ProfileFragment(activity: Activity) : Fragment()
 {
 
     private lateinit var auth: FirebaseAuth

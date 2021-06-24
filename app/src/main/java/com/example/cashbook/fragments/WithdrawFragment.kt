@@ -1,14 +1,34 @@
 package com.example.cashbook.fragments
 
+import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import com.example.cashbook.HomeActivity
 import com.example.cashbook.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 
-class WithdrawFragment : Fragment() {
+class WithdrawFragment(activity: Activity) : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
+    private lateinit var withdrawButton: Button
+    private lateinit var withdrawAmount: EditText
+    private lateinit var agentEmail: EditText
+    private lateinit var balanceBefore: TextView
+    private lateinit var balanceAfter: TextView
+    private lateinit var withdrawNote:EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,12 +36,109 @@ class WithdrawFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_withdraw, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+        val currentUser = auth.currentUser
+        val sender: String = currentUser!!.email!!
+        withdrawButton = view.findViewById(R.id.withdraw_button)
+        withdrawAmount = view.findViewById(R.id.withdraw_amount)
+        agentEmail = view.findViewById(R.id.withdraw_email)
+        balanceBefore = view.findViewById(R.id.current_balance_withdraw)
+        balanceAfter = view.findViewById(R.id.balance_after_withdraw)
+        withdrawNote=view.findViewById(R.id.withdraw_note)
+        balanceBefore.setText("-")
+        balanceAfter.setText("-")
+
+        withdrawButton.setOnClickListener {
+            if (!withdrawAmount.text.isEmpty() && !agentEmail.text.isEmpty()) {
+                val note = if(withdrawNote.text.isEmpty()) "No special note" else withdrawNote.text.toString()
+                val amount = withdrawAmount.text.toString().toDouble()
+                val receiver: String = agentEmail.text.toString().trim()
+                val ref: DocumentReference = db.collection("Users").document(sender)
+                db.runTransaction { transaction ->
+                    val snapshot = transaction.get(ref)
+                    val newBalance = snapshot.getDouble("balance")!! - amount
+                    if (newBalance >= 0.00) {
+                        db.collection("Agents").document(receiver).get().addOnSuccessListener {
+                            if (it.exists() && sender != receiver) {
+
+                                withdraw(sender, receiver,amount)
+                                balanceBefore.setText((newBalance + amount).toString())
+                                balanceAfter.setText(newBalance.toString())
+                                updateHistory(sender, receiver, amount,note)
+                                show(amount.toString() + " Tk. withdrawn via " + receiver)
+                            } else {
+                                if (it.exists()) show("You cant transfer to yourself")
+                                else show("Please fill in a valid Agent mail address")
+                            }
+                        }
+                    } else {
+                        activity?.runOnUiThread { show("Out of balance") }
+
+                    }
+                    // Success
+                    null
+                }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
+                        .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
+            } else {
+                show("please fill in the information")
+            }
+
+        }
+
+    }
+
+    private fun show(message: String) {
+        Toast.makeText(
+                activity?.baseContext, message, Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun updateHistory(sender: String, agent: String, amount: Double,tranNote:String) {
+        val historyRefSender: DocumentReference = db.collection(sender).document()
+        val currDate = Date()
+        val senderData = hashMapOf(
+                "sent|rec|with" to 2,
+                "amount" to amount,
+                "date" to currDate,
+                "dealer" to agent,
+                "note" to tranNote
+        )
+        historyRefSender.set(senderData).addOnSuccessListener { Log.d("test", "sender history successfully written!") }
+                .addOnFailureListener { e -> Log.w("test", "Error writing document", e) }
+
+    }
+
+    private fun withdraw(sender: String,agent: String, amount: Double) {
+        val transDocRef: DocumentReference = db.collection("Users").document(sender)
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(transDocRef)
+            val newBalance = snapshot.getDouble("balance")!! - amount
+            transaction.update(transDocRef, "balance", newBalance)
+            // Success
+            null
+        }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
+                .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
+        val receivDocRef: DocumentReference = db.collection("Agents").document(agent)
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(receivDocRef)
+            val newBalance = snapshot.getDouble("balance")!! + amount
+            transaction.update(receivDocRef, "balance", newBalance)
+
+            // Success
+            null
+        }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
+                .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
+
+    }
 
 }

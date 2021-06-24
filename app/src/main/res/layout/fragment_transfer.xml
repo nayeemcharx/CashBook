@@ -100,7 +100,7 @@
         app:layout_constraintTop_toBottomOf="@id/transfer_amount"  />
 
     <EditText
-        android:id="@+id/withdraw_note"
+        android:id="@+id/transfer_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
@@ -125,13 +125,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/withdraw_note"
+        app:layout_constraintTop_toBottomOf="@id/transfer_note"
         android:orientation="horizontal"
         >
 
 
         <TextView
-            android:id="@+id/current_balance_txt"
+            android:id="@+id/current_balance__transfer_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
@@ -151,14 +151,14 @@
         </View>
 
         <TextView
-            android:id="@+id/current_balance"
+            android:id="@+id/current_balance_transfer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="35dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/alike_angular"
-            android:text="$1500"
+            android:text="Tk.-"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -197,14 +197,14 @@
         </View>
 
         <TextView
-            android:id="@+id/balance_after_withdraw"
+            android:id="@+id/balance_after_transaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/alike_angular"
-            android:text="$500"
+            android:text="Tk-"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />

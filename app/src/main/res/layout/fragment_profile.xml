@@ -36,7 +36,7 @@
                 android:fontFamily="@font/alike_angular"
                 android:gravity="center"
                 android:lineSpacingExtra="11sp"
-                android:text="$7505"
+                android:text="Tk.-"
                 android:textColor="@color/white"
                 android:textSize="35sp"
                 android:textStyle="bold">

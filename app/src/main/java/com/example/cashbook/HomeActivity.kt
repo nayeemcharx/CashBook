@@ -17,6 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
     private lateinit var viewPager : ViewPager
     private lateinit var tabs: TabLayout
     private lateinit var transferButton:Button
@@ -31,10 +33,11 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun setUpTabs(){
+
         val adapter=ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(ProfileFragment(this),title = "Profile")
         adapter.addFragment(TransferFragment(this),title = "Transfer")
-        adapter.addFragment(WithdrawFragment(),title = "withdraw")
+        adapter.addFragment(WithdrawFragment(this),title = "withdraw")
         adapter.addFragment(HistoryFragment(this),title = "History")
 
 
