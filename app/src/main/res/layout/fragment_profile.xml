@@ -255,7 +255,8 @@
                         android:fontFamily="@font/alike_angular"
                         android:text="You have spent 1459$ in this month."
                         android:textColor="#000000"
-                        android:textSize="15sp">
+                        android:textSize="15sp"
+                        android:textStyle="bold">
 
                     </TextView>
 
