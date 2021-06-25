@@ -1,7 +1,6 @@
-package com.example.cashbook
+package com.example.cashbook.fragments
 
 import com.google.firebase.Timestamp
-import java.util.*
 
 class History(private val amount: Double, private val check: String, private val dealer: String, private val timestamp: Timestamp, private val tranId: String) {
 

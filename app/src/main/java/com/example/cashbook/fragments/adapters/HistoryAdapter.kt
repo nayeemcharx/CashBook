@@ -1,13 +1,13 @@
-package com.example.cashbook
+package com.example.cashbook.fragments.adapters
 
-import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cashbook.R
+import com.example.cashbook.fragments.History
 
 class historyAdapter(private val item:ArrayList<History>): RecyclerView.Adapter<historyAdapter.ViewHolder>() {
     class ViewHolder(val constraintLayout: ConstraintLayout) :
