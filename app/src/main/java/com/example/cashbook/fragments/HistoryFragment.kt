@@ -73,6 +73,10 @@ class HistoryFragment(activity: Activity) : Fragment() {
             layoutManager = recyclerLayoutManager
             adapter = recyclerAdapter
         }
+        db.collection(email).get().addOnSuccessListener {
+            if(it.isEmpty)
+                refresh.isRefreshing=false
+        }
         db.collection(email).orderBy("date", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
