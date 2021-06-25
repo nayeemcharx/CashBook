@@ -25,9 +25,8 @@ class History(private val amount: Double, private val check: String, private val
     }
     fun getDate():String
     {
-
         val datepart=timestamp.toDate().toString().split("\\s".toRegex())
-        return datepart[1]+"-"+datepart[2]+"-"+datepart[5]+" "+datepart[3]
+        return datepart[1]+"-"+datepart[2]+"-"+datepart[5]+" "+datepart[3]+"(GMT)"
     }
     fun getNote():String
     {

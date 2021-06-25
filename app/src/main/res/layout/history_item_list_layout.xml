@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="120dp"
     android:clickable="true"
     android:longClickable="true"
     android:background="@drawable/recycle_view_background">
@@ -15,7 +15,7 @@
         android:layout_height="0dp"
         android:layout_marginLeft="22dp"
         android:fontFamily="@font/alike_angular"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/Transaction_from"
         app:layout_constraintEnd_toStartOf="@id/amount_history"
         app:layout_constraintHorizontal_weight=".65"
@@ -44,27 +44,14 @@
         android:layout_height="0dp"
         android:layout_marginLeft="22dp"
         android:fontFamily="@font/alike_angular"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/Transaction_ID"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toTopOf="@id/note_history"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/date_of_transaction"
         android:layout_marginTop="5dp"
         android:textColor="@color/white"/>
 
-    <TextView
-        android:id="@+id/Transaction_ID"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="22dp"
-        android:fontFamily="@font/alike_angular"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/note_history"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Transaction_from"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/white"/>
 
 
     <TextView
@@ -73,11 +60,11 @@
         android:layout_height="0dp"
         android:layout_marginLeft="22dp"
         android:fontFamily="@font/alike_angular"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Transaction_ID"
+        app:layout_constraintTop_toBottomOf="@id/Transaction_from"
         android:layout_marginTop="5dp"
         android:textColor="@color/white"/>
 

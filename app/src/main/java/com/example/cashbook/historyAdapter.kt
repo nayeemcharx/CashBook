@@ -26,8 +26,8 @@ class historyAdapter(private val item:ArrayList<History>): RecyclerView.Adapter<
         val dateTime=constraintLayout.getChildAt(0) as TextView
         val amount=constraintLayout.getChildAt(1) as TextView
         val dealer=constraintLayout.getChildAt(2) as TextView
-        val tranId=constraintLayout.getChildAt(3) as TextView
-        val note=constraintLayout.getChildAt(4) as TextView
+        //val tranId=constraintLayout.getChildAt(3) as TextView
+        val note=constraintLayout.getChildAt(3) as TextView
         dateTime.text=item[position].getDate()
         if(item[position].getCheck()=="1")
             amount.setTextColor(Color.GREEN)
@@ -37,12 +37,12 @@ class historyAdapter(private val item:ArrayList<History>): RecyclerView.Adapter<
             amount.setTextColor(Color.RED)
         val amountTxt="Tk. "+item[position].getAmount()
         amount.text=amountTxt
-        val beforeTxt=if(item[position].getCheck()=="0") "Transfered to:" else if(item[position].getCheck()=="1") "Received from:" else "Withdrawn Via:"
+        val beforeTxt=if(item[position].getCheck()=="0") "Transfered to " else if(item[position].getCheck()=="1") "Received from " else "Withdrawn Via "
         val dealerTxt=beforeTxt+item[position].getDealer()
         dealer.text=dealerTxt
         val tranIdTxt="Tran. ID:"+item[position].getTranId()
-        tranId.text=tranIdTxt
-        val noteTxt="Note:"+item[position].getNote()
+        //tranId.text=tranIdTxt
+        val noteTxt=if(item[position].getNote()=="-") "" else "Note:" +item[position].getNote()
         note.text=noteTxt
 
 
