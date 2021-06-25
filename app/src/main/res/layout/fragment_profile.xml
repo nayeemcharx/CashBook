@@ -151,7 +151,7 @@
                         android:layout_marginLeft="35dp"
                         android:fontFamily="@font/alike_angular"
                         android:lineSpacingExtra="3sp"
-                        android:text="Spent"
+                        android:text="Transfered"
                         android:textColor="#1c1939"
                         android:textSize="15sp"
                         android:textStyle="bold">

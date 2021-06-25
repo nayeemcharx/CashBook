@@ -60,7 +60,7 @@ class WithdrawFragment(activity: Activity) : Fragment() {
 
         withdrawButton.setOnClickListener {
             if (!withdrawAmount.text.isEmpty() && !agentEmail.text.isEmpty()) {
-                val note = if(withdrawNote.text.isEmpty()) "No special note" else withdrawNote.text.toString()
+                val note = if(withdrawNote.text.isEmpty()) "-" else withdrawNote.text.toString()
                 val amount = withdrawAmount.text.toString().toDouble()
                 val receiver: String = agentEmail.text.toString().trim()
                 val ref: DocumentReference = db.collection("Users").document(sender)

@@ -55,11 +55,23 @@ class HistoryFragment(activity: Activity) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+
+        Item = view.findViewById(R.id.history_items)
+        refresh = view.findViewById(R.id.swipTorefresh)
+        refresh.isRefreshing=true
+        updateItemViews()
+        refresh.setOnRefreshListener {
+            updateItemViews()
+        }
+
+    }
+
+    private fun updateItemViews()
+    {
+
         val itemList = ArrayList<History>()
         val currentUser = auth.currentUser
         val email = currentUser!!.email!!
-        Item = view.findViewById(R.id.history_items)
-        refresh = view.findViewById(R.id.swipTorefresh)
         recyclerLayoutManager = LinearLayoutManager(activity)
         recyclerAdapter = historyAdapter(itemList)
         Item.apply {
@@ -72,52 +84,24 @@ class HistoryFragment(activity: Activity) : Fragment() {
                 for (document in documents) {
 
                     val amount = document["amount"] as Double
-                    val s_r_w = document["sent|rec|with"]!!.toString()
+                    val srw = document["sent|rec|with"]!!.toString()
                     val dealer = document["dealer"]!!.toString()
                     val time = document["date"] as com.google.firebase.Timestamp
                     val note = document["note"]
-                    val historyItem = History(amount, s_r_w, dealer, time, document.id.toString())
+                    val historyItem = History(amount, srw, dealer, time, document.id.toString())
                     if (note != null)
                         historyItem.setNote(note.toString())
                     itemList.add(historyItem)
                     val datepart = time.toDate().toString().split("\\s".toRegex())
-                    Log.d(
-                        "whatt",
-                        datepart[1] + "-" + datepart[2] + "-" + datepart[5] + " " + datepart[3]
-                    )
-                    //Log.d("whatt", x.time.toString())
                     recyclerAdapter.notifyDataSetChanged()
+                    refresh.isRefreshing = false
                 }
             }
             .addOnFailureListener { exception ->
-                Log.w("test", "Error getting documents: ", exception)
+                Log.w("errors", "Error getting documents: ", exception)
             }
-
-
-        refresh.setOnRefreshListener {
-            Toast.makeText(
-                activity?.baseContext, "Page Refreshed", Toast.LENGTH_SHORT
-            ).show()
-            refresh.isRefreshing = false
-        }
-
-
-
-
-
-
     }
 
-//    private fun refreshApp() {
-//        refresh.setOnRefreshListener {
-//            Toast.makeText(
-//                activity?.baseContext, "Page Refreshed", Toast.LENGTH_SHORT
-//            ).show()
-//            refresh.isRefreshing = false
-//        }
-//
-//
-//    }
 
 
 }

@@ -64,7 +64,7 @@ class TransferFragment(activity: Activity) : Fragment() {
 
         transferButton.setOnClickListener{
             if(!transferAmount.text.isEmpty() && !receiverEmail.text.isEmpty()) {
-                val note = if(transferNote.text.isEmpty()) "No special note" else transferNote.text.toString()
+                val note = if(transferNote.text.isEmpty()) "-" else transferNote.text.toString()
                 val amount = transferAmount.text.toString().toDouble()
                 val receiver: String = receiverEmail.text.toString().trim()
                 val ref: DocumentReference = db.collection("Users").document(sender)
@@ -95,8 +95,8 @@ class TransferFragment(activity: Activity) : Fragment() {
                     }
                     // Success
                     null
-                }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
-                        .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
+                }.addOnSuccessListener { Log.d("Transfer", "Transaction success!") }
+                        .addOnFailureListener { e -> Log.w("Transfer", "Transaction failure.", e) }
             }
             else
             {
@@ -123,25 +123,25 @@ class TransferFragment(activity: Activity) : Fragment() {
                 "dealer" to receiver,
                 "note" to tranNote
         )
-        historyRefSender.set(senderData).addOnSuccessListener { Log.d("test", "sender history successfully written!") }
-                .addOnFailureListener { e -> Log.w("test", "Error writing document", e) }
+        historyRefSender.set(senderData).addOnSuccessListener { Log.d("Transfer", "sender history successfully written!") }
+                .addOnFailureListener { e -> Log.w("Transfer", "Error writing document", e) }
 
         val historyRefReceiver: DocumentReference = db.collection(receiver).document()
         val receiverData = hashMapOf(
                 "sent|rec|with" to 1,
                 "amount" to amount,
                 "date" to currDate,
-                "dealer" to sender
+                "dealer" to sender,
+                "note" to tranNote
         )
-        historyRefReceiver.set(receiverData).addOnSuccessListener { Log.d("test", "receiver history successfully written!") }
-                .addOnFailureListener { e -> Log.w("test", "Error writing document", e) }
+        historyRefReceiver.set(receiverData).addOnSuccessListener { Log.d("Transfer", "receiver history successfully written!") }
+                .addOnFailureListener { e -> Log.w("Transfer", "Error writing document", e) }
 
         val month=currDate.toString().split("\\s".toRegex())[1]+currDate.toString().split("\\s".toRegex())[5]
 
         val thisMonthTranRef: DocumentReference = db.collection("monthlyTransfer").document(sender)
         db.runTransaction { transaction ->
             val snapshot = transaction.get(thisMonthTranRef)
-            Log.d("tess","test1")
             if(snapshot.getDouble(month)==null)
             {
                 val data = hashMapOf(
@@ -155,8 +155,8 @@ class TransferFragment(activity: Activity) : Fragment() {
             }
             // Success
             null
-        }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
-                .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
+        }.addOnSuccessListener { Log.d("Transfer", "Transaction success!") }
+                .addOnFailureListener { e -> Log.w("Transfer", "Transaction failure.", e) }
 
         val thisMonthRecRef: DocumentReference = db.collection("monthlyReceived").document(receiver)
         db.runTransaction { transaction ->
@@ -174,8 +174,8 @@ class TransferFragment(activity: Activity) : Fragment() {
             }
             // Success
             null
-        }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
-                .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
+        }.addOnSuccessListener { Log.d("Transfer", "Transaction success!") }
+                .addOnFailureListener { e -> Log.w("Transfer", "Transaction failure.", e) }
     }
 
     private fun transfer(sender: String, receiver: String, amount: Double) {
@@ -186,8 +186,8 @@ class TransferFragment(activity: Activity) : Fragment() {
             transaction.update(transDocRef, "balance", newBalance)
             // Success
             null
-        }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
-                .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
+        }.addOnSuccessListener { Log.d("Transfer", "Transaction success!") }
+                .addOnFailureListener { e -> Log.w("Transfer", "Transaction failure.", e) }
         val receivDocRef: DocumentReference = db.collection("Users").document(receiver)
         db.runTransaction { transaction ->
             val snapshot = transaction.get(receivDocRef)
@@ -195,8 +195,8 @@ class TransferFragment(activity: Activity) : Fragment() {
             transaction.update(receivDocRef, "balance", newBalance)
             // Success
             null
-        }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
-                .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
+        }.addOnSuccessListener { Log.d("Transfer", "Transaction success!") }
+                .addOnFailureListener { e -> Log.w("Transfer", "Transaction failure.", e) }
 
     }
 
