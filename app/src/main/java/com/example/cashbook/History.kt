@@ -1,43 +1,42 @@
 package com.example.cashbook
 
-import android.util.Log
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.Timestamp
+import java.util.*
 
-class History {
+class History(private val amount: Double, private val check: String, private val dealer: String, private val timestamp: Timestamp, private val tranId: String) {
 
-    // property (data member)
-    private var isOn: Boolean = false
 
-    // member function
-    fun turnOn() {
-        isOn = true
+    private var note="-"
+    fun setNote(note: String)
+    {
+        this.note=note
     }
-
-    // member function
-    fun turnOff() {
-        isOn = false
+    fun getAmount():String
+    {
+        return amount.toString()
     }
-    fun createHistory():ArrayList<String>
+    fun getCheck():String
+    {
+        return check
+    }
+    fun getDealer():String
+    {
+        return dealer
+    }
+    fun getDate():String
     {
 
-        val db: FirebaseFirestore
-        val itemList=ArrayList<String>()
-//        itemList.add("1")
-        db= FirebaseFirestore.getInstance()
-        val docRef = db.collection("Users").document("nayeem@gmail.com")
-        docRef.addSnapshotListener { snapshot, e ->
-            if (e != null) {
-                Log.w("test", "Listen failed.", e)
-                return@addSnapshotListener
-            }
-
-            if (snapshot != null && snapshot.exists()) {
-                itemList.add("1")
-                Log.d("test", "Current data: ${snapshot.data}")
-            } else {
-                Log.d("test", "Current data: null")
-            }
-        }
-        return itemList
+        val datepart=timestamp.toDate().toString().split("\\s".toRegex())
+        return datepart[1]+"-"+datepart[2]+"-"+datepart[5]+" "+datepart[3]
     }
+    fun getNote():String
+    {
+        return note
+    }
+    fun getTranId():String
+    {
+        return tranId
+    }
+
+
 }

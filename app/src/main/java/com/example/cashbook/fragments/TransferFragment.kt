@@ -17,6 +17,7 @@ import com.example.cashbook.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.type.DateTime
 import org.w3c.dom.Text
 import java.util.*
 
@@ -134,6 +135,47 @@ class TransferFragment(activity: Activity) : Fragment() {
         )
         historyRefReceiver.set(receiverData).addOnSuccessListener { Log.d("test", "receiver history successfully written!") }
                 .addOnFailureListener { e -> Log.w("test", "Error writing document", e) }
+
+        val month=currDate.toString().split("\\s".toRegex())[1]+currDate.toString().split("\\s".toRegex())[5]
+
+        val thisMonthTranRef: DocumentReference = db.collection("monthlyTransfer").document(sender)
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(thisMonthTranRef)
+            Log.d("tess","test1")
+            if(snapshot.getDouble(month)==null)
+            {
+                val data = hashMapOf(
+                        month to amount)
+                transaction.set(thisMonthTranRef,data)
+            }
+            else
+            {
+                val newBalance = snapshot.getDouble(month)!! + amount
+                transaction.update(thisMonthTranRef, month, newBalance)
+            }
+            // Success
+            null
+        }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
+                .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
+
+        val thisMonthRecRef: DocumentReference = db.collection("monthlyReceived").document(receiver)
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(thisMonthRecRef)
+            if(snapshot.getDouble(month)==null)
+            {
+                val data = hashMapOf(
+                        month to amount)
+                transaction.set(thisMonthRecRef,data)
+            }
+            else
+            {
+                val newBalance = snapshot.getDouble(month)!! + amount
+                transaction.update(thisMonthRecRef, month, newBalance)
+            }
+            // Success
+            null
+        }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
+                .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
     }
 
     private fun transfer(sender: String, receiver: String, amount: Double) {

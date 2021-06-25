@@ -19,6 +19,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import io.armcha.elasticview.ElasticView
 import org.w3c.dom.Text
+import java.util.*
 
 
 class ProfileFragment(activity: Activity) : Fragment()
@@ -29,6 +30,10 @@ class ProfileFragment(activity: Activity) : Fragment()
     private lateinit var logOutButton:Button
     private lateinit var balance:TextView
     private lateinit var fullName:TextView
+    private lateinit var spentMoney:TextView
+    private lateinit var receivedMoney:TextView
+    private lateinit var withdrawnMoney:TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,6 +56,11 @@ class ProfileFragment(activity: Activity) : Fragment()
         db= FirebaseFirestore.getInstance()
         balance=view.findViewById(R.id.balance)
         fullName=view.findViewById(R.id.user)
+        spentMoney=view.findViewById(R.id.spent_money)
+        receivedMoney=view.findViewById(R.id.received_money)
+        withdrawnMoney=view.findViewById(R.id.withdraw_money)
+
+
         val currentUser = auth.currentUser
         val userID:String=currentUser!!.uid
         val email:String = currentUser.email!!
@@ -91,7 +101,9 @@ class ProfileFragment(activity: Activity) : Fragment()
                 Log.d("test", "Current data: null")
             }
         }
-
+        updateMoneyText(1,email)
+        updateMoneyText(2,email)
+        updateMoneyText(3,email)
         logOutButton=view.findViewById(R.id.log_out_button)
         logOutButton.setOnClickListener{
             auth.signOut()
@@ -104,6 +116,47 @@ class ProfileFragment(activity: Activity) : Fragment()
 
         //some code about updating profile picture
 
+    }
+
+    private fun updateMoneyText(order: Int,email:String)
+    {
+        val choose = if(order==1)"monthlyTransfer" else if(order==2) "monthlyReceived" else "monthlyWithdraw"
+        val spent: DocumentReference = db.collection(choose).document(email)
+        spent.addSnapshotListener{ snapshot, e ->
+            if (e != null) {
+                Log.w("test", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+            if (snapshot != null && snapshot.exists())
+            {
+                val currDate= Date()
+                val month=currDate.toString().split("\\s".toRegex())[1]+currDate.toString().split("\\s".toRegex())[5]
+                val money=snapshot.getDouble(month)
+                if(money!=null)
+                {
+                    val adder="Tk. "+money.toString()
+                    if(order==1) spentMoney.setText(adder)
+                    if(order==2) receivedMoney.setText(adder)
+                    if(order==3)
+                    {
+                        val newAdder="You have withdrawn ${adder} in this month."
+                        withdrawnMoney.setText(newAdder)
+                    }
+                }
+            }
+            else
+            {
+                val adder="Tk. 0"
+                if(order==1) spentMoney.setText(adder)
+                if(order==2) receivedMoney.setText(adder)
+                if(order==3)
+                {
+                    val newAdder="You have withdrawn Tk. 0 in this month."
+                    withdrawnMoney.setText(newAdder)
+                }
+                Log.d("tesss", "Current data: null")
+            }
+        }
     }
 
 }

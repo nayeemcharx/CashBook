@@ -13,8 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cashbook.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.auth.User
+import com.google.type.Date
+import java.sql.Timestamp
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HistoryFragment(activity:Activity) : Fragment() {
@@ -41,7 +46,7 @@ class HistoryFragment(activity:Activity) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth= FirebaseAuth.getInstance()
         db= FirebaseFirestore.getInstance()
-        val itemList=ArrayList<String>()
+        val itemList=ArrayList<History>()
         val currentUser=auth.currentUser
         val email=currentUser!!.email!!
         Item = view.findViewById(R.id.history_items)
@@ -52,12 +57,22 @@ class HistoryFragment(activity:Activity) : Fragment() {
             layoutManager = recyclerLayoutManager
             adapter = recyclerAdapter
         }
-        db.collection(email)
-                .get()
+        db.collection(email).orderBy("date", Query.Direction.DESCENDING).get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        itemList.add("1")
-                        Log.d("test", "${document.id} => ${document.data}")
+
+                        val amount=document["amount"] as Double
+                        val s_r_w=document["sent|rec|with"]!!.toString()
+                        val dealer=document["dealer"]!!.toString()
+                        val time=document["date"] as com.google.firebase.Timestamp
+                        val note=document["note"]
+                        val historyItem=History(amount,s_r_w,dealer,time,document.id.toString())
+                        if(note!=null)
+                            historyItem.setNote(note.toString())
+                        itemList.add(historyItem)
+                        val datepart=time.toDate().toString().split("\\s".toRegex())
+                        Log.d("whatt", datepart[1]+"-"+datepart[2]+"-"+datepart[5]+" "+datepart[3])
+                        //Log.d("whatt", x.time.toString())
                         recyclerAdapter.notifyDataSetChanged()
                     }
                 }

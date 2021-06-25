@@ -116,6 +116,31 @@ class WithdrawFragment(activity: Activity) : Fragment() {
         historyRefSender.set(senderData).addOnSuccessListener { Log.d("test", "sender history successfully written!") }
                 .addOnFailureListener { e -> Log.w("test", "Error writing document", e) }
 
+        val month=currDate.toString().split("\\s".toRegex())[1]+currDate.toString().split("\\s".toRegex())[5]
+        val thisMonthWithRef: DocumentReference = db.collection("monthlyWithdraw").document(sender)
+
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(thisMonthWithRef)
+            Log.d("tess","test2")
+            if(snapshot.getDouble(month)==null)
+            {
+                val data = hashMapOf(
+                        month to amount)
+                transaction.set(thisMonthWithRef,data)
+                Log.d("tess","yess")
+            }
+            else
+            {
+                val newBalance = snapshot.getDouble(month)!! + amount
+                transaction.update(thisMonthWithRef, month, newBalance)
+                Log.d("tess","tess")
+            }
+            Log.d("tess","last")
+            // Success
+            null
+        }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
+                .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
+
     }
 
     private fun withdraw(sender: String,agent: String, amount: Double) {
