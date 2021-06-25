@@ -47,7 +47,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/gray"
-            android:hint=" Email Address"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawablePadding="12dp"
+            android:hint="Email Address"
             android:inputType="textEmailAddress"
             android:textColor="@color/white"
             android:textColorHint="@color/gray" />
@@ -58,7 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:backgroundTint="@color/gray"
-            android:hint=" PIN"
+            android:drawableStart="@drawable/ic_baseline_lock_24"
+            android:drawablePadding="12dp"
+            android:hint="PIN"
             android:inputType="numberPassword"
             android:textColor="@color/white"
             android:textColorHint="@color/gray" />
