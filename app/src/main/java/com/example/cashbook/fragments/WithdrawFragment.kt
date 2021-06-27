@@ -2,6 +2,8 @@ package com.example.cashbook.fragments
 
 import android.app.Activity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -55,13 +57,57 @@ class WithdrawFragment(activity: Activity) : Fragment() {
         balanceBefore = view.findViewById(R.id.current_balance_withdraw)
         balanceAfter = view.findViewById(R.id.balance_after_withdraw)
         withdrawNote=view.findViewById(R.id.withdraw_note)
-        balanceBefore.setText("-")
-        balanceAfter.setText("-")
+
+        val balRef=db.collection("Users").document(sender)
+        balRef.addSnapshotListener{ snap, e ->
+            if (e != null) {
+                return@addSnapshotListener
+            }
+            if (snap != null && snap.exists())
+            {
+                val balance=snap.getDouble("balance")
+                if(balance!=null)
+                    balanceBefore.setText(balance.toString())
+            }
+
+        }
+
+        initViews(sender)
+
+        withdrawAmount.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                if(s.toString()==".")
+                    withdrawAmount.setText("")
+                else
+                {
+                    db.collection("Users").document(sender).get().addOnSuccessListener {
+                        if (it.exists()) {
+                            val balance = it["balance"].toString().toDouble()
+                            val balAfter= if(!s.isEmpty())
+                                (if(balance - String.format("%.2f",s.toString().toDouble()).toDouble()>=0.0)
+                                    balance - String.format("%.2f",s.toString().toDouble()).toDouble()
+                                else "-")
+                            else "-"
+                            balanceBefore.setText(balance.toString())
+                            balanceAfter.setText(balAfter.toString())
+                        }
+                    }
+                }
+            }
+        })
 
         withdrawButton.setOnClickListener {
             if (!withdrawAmount.text.isEmpty() && !agentEmail.text.isEmpty()) {
                 val note = if(withdrawNote.text.isEmpty()) "-" else withdrawNote.text.toString()
-                val amount = withdrawAmount.text.toString().toDouble()
+                val amount = String.format("%.2f", withdrawAmount.text.toString().toDouble()).toDouble()
                 val receiver: String = agentEmail.text.toString().trim()
                 val ref: DocumentReference = db.collection("Users").document(sender)
                 db.runTransaction { transaction ->
@@ -72,10 +118,8 @@ class WithdrawFragment(activity: Activity) : Fragment() {
                             if (it.exists() && sender != receiver) {
 
                                 withdraw(sender, receiver,amount)
-                                balanceBefore.setText((newBalance + amount).toString())
-                                balanceAfter.setText(newBalance.toString())
                                 updateHistory(sender, receiver, amount,note)
-                                show(amount.toString() + " Tk. withdrawn via " + receiver)
+                                show("$amount Tk. withdrawn via $receiver")
                             } else {
                                 if (it.exists()) show("You cant transfer to yourself")
                                 else show("Please fill in a valid Agent mail address")
@@ -95,6 +139,12 @@ class WithdrawFragment(activity: Activity) : Fragment() {
 
         }
 
+    }
+    private fun initViews(sender: String) {
+        agentEmail.setText("")
+        withdrawAmount.setText("")
+        balanceAfter.setText("-")
+        withdrawNote.setText("")
     }
 
     private fun show(message: String) {
@@ -151,7 +201,9 @@ class WithdrawFragment(activity: Activity) : Fragment() {
             transaction.update(transDocRef, "balance", newBalance)
             // Success
             null
-        }.addOnSuccessListener { Log.d("trans", "Transaction success!") }
+        }.addOnSuccessListener {
+            initViews(sender)
+            Log.d("trans", "Transaction success!") }
                 .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
         val receivDocRef: DocumentReference = db.collection("Agents").document(agent)
         db.runTransaction { transaction ->

@@ -86,11 +86,10 @@ class HistoryFragment(activity: Activity) : Fragment() {
                     val dealer = document["dealer"]!!.toString()
                     val time = document["date"] as com.google.firebase.Timestamp
                     val note = document["note"]
-                    val historyItem = History(amount, srw, dealer, time, document.id.toString())
+                    val historyItem = History(amount, srw, dealer, time, document.id)
                     if (note != null)
                         historyItem.setNote(note.toString())
                     itemList.add(historyItem)
-                    val datepart = time.toDate().toString().split("\\s".toRegex())
                     recyclerAdapter.notifyDataSetChanged()
                     refresh.isRefreshing = false
                 }

@@ -37,7 +37,7 @@ class historyAdapter(private val item:ArrayList<History>): RecyclerView.Adapter<
             amount.setTextColor(Color.RED)
         val amountTxt="Tk. "+item[position].getAmount()
         amount.text=amountTxt
-        val beforeTxt=if(item[position].getCheck()=="0") "Transfered to " else if(item[position].getCheck()=="1") "Received from " else "Withdrawn Via "
+        val beforeTxt=if(item[position].getCheck()=="0") "Transfered to " else if(item[position].getCheck()=="1") "Received from " else "Withdrawn via "
         val dealerTxt=beforeTxt+item[position].getDealer()
         dealer.text=dealerTxt
         val tranIdTxt="Tran. ID:"+item[position].getTranId()
