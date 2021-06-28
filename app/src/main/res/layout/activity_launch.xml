@@ -11,13 +11,13 @@
         android:id="@+id/app_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="105dp"
+        android:layout_marginBottom="200dp"
+        android:contentDescription="@string/app_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/app_icon"
-        android:contentDescription="@string/app_image" />
+        app:srcCompat="@drawable/app_icon" />
 
     <TextView
         android:id="@+id/appname"
