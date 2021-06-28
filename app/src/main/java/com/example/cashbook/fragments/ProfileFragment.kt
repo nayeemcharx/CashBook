@@ -134,7 +134,7 @@ class ProfileFragment(activity: Activity) : Fragment()
                 val money=snapshot.getDouble(month)
                 if(money!=null)
                 {
-                    val adder="Tk. "+money.toString()
+                    val adder="৳"+money.toString()
                     if(order==1) spentMoney.setText(adder)
                     if(order==2) receivedMoney.setText(adder)
                     if(order==3)
@@ -146,12 +146,12 @@ class ProfileFragment(activity: Activity) : Fragment()
             }
             else
             {
-                val adder="Tk. 0"
+                val adder="৳0"
                 if(order==1) spentMoney.setText(adder)
                 if(order==2) receivedMoney.setText(adder)
                 if(order==3)
                 {
-                    val newAdder="You have withdrawn Tk. 0 in this month."
+                    val newAdder="You have withdrawn ৳0 in this month."
                     withdrawnMoney.setText(newAdder)
                 }
                 Log.d("tesss", "Current data: null")

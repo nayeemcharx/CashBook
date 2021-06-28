@@ -18,7 +18,7 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/Transaction_from"
         app:layout_constraintEnd_toStartOf="@id/amount_history"
-        app:layout_constraintHorizontal_weight=".65"
+        app:layout_constraintHorizontal_weight=".55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/white"
@@ -29,14 +29,15 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/alike_angular"
-        android:gravity="center"
+        android:gravity="end"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@id/Transaction_from"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight=".35"
+        app:layout_constraintHorizontal_weight=".45"
         app:layout_constraintStart_toEndOf="@+id/date_of_transaction"
         app:layout_constraintTop_toTopOf="parent"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginRight="8dp"/>
 
     <TextView
         android:id="@+id/Transaction_from"

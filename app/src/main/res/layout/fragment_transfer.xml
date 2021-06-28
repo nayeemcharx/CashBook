@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.TransferFragment"
-    android:background="@drawable/background_colour_1">
-
+    android:background="@drawable/background_colour_1"
+    tools:context=".fragments.TransferFragment">
 
 
     <TextView
@@ -23,7 +22,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"  />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <EditText
@@ -60,7 +59,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/receiver_email"  />
+        app:layout_constraintTop_toBottomOf="@id/receiver_email" />
 
     <EditText
         android:id="@+id/transfer_amount"
@@ -97,7 +96,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transfer_amount"  />
+        app:layout_constraintTop_toBottomOf="@id/transfer_amount" />
 
     <EditText
         android:id="@+id/transfer_note"
@@ -108,8 +107,9 @@
         android:layout_marginRight="22dp"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/alike_angular"
-        android:inputType="textShortMessage"
         android:hint="Optional"
+        android:inputType="textShortMessage"
+        android:maxLength="30"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -124,11 +124,10 @@
         android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transfer_note"
-        android:orientation="horizontal"
-        >
+        app:layout_constraintTop_toBottomOf="@id/transfer_note">
 
 
         <TextView
@@ -155,7 +154,7 @@
             android:id="@+id/current_balance_transfer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginTop="35dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/alike_angular"
@@ -171,11 +170,10 @@
         android:id="@+id/linear2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear1"
-        android:orientation="horizontal"
-        >
+        app:layout_constraintTop_toBottomOf="@id/linear1">
 
 
         <TextView
@@ -186,10 +184,11 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="22dp"
             android:fontFamily="@font/alike_angular"
-            android:text="Balance after Transaction :"
+            android:text="After Transaction :"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -201,7 +200,7 @@
             android:id="@+id/balance_after_transaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/alike_angular"
@@ -218,24 +217,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_background_color2"
+        android:fontFamily="@font/alike_angular"
         android:text="Transfer"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear2"
-        android:background="@drawable/button_background_color2"
-        android:fontFamily="@font/alike_angular"
-        android:layout_marginTop="10dp"
 
         >
 
     </androidx.appcompat.widget.AppCompatButton>
-
-
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
