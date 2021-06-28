@@ -1,6 +1,10 @@
 package com.example.cashbook.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.ResultReceiver
 import android.text.Editable
@@ -15,6 +19,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import com.example.cashbook.HomeActivity
 import com.example.cashbook.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -34,6 +39,7 @@ class TransferFragment(activity: Activity) : Fragment() {
     private lateinit var balanceBefore:TextView
     private lateinit var balanceAfter:TextView
     private lateinit var transferNote:EditText
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +82,7 @@ class TransferFragment(activity: Activity) : Fragment() {
 
         }
 
-        initViews(sender)
+        initViews()
 
         transferAmount.addTextChangedListener(object : TextWatcher {
 
@@ -96,7 +102,7 @@ class TransferFragment(activity: Activity) : Fragment() {
                             val balance = it["balance"].toString().toDouble()
                             val balAfter= if(!s.isEmpty())
                                     (if(balance - String.format("%.2f",s.toString().toDouble()).toDouble()>=0.0)
-                                        balance - String.format("%.2f",s.toString().toDouble()).toDouble()
+                                        String.format("%.2f",balance - String.format("%.2f",s.toString().toDouble()).toDouble()).toDouble()
                                     else "-")
                             else "-"
                             balanceBefore.setText(balance.toString())
@@ -113,21 +119,23 @@ class TransferFragment(activity: Activity) : Fragment() {
                 val amount =  String.format("%.2f", transferAmount.text.toString().toDouble()).toDouble()
                 val receiver: String = receiverEmail.text.toString().trim()
                 val ref: DocumentReference = db.collection("Users").document(sender)
-                db.runTransaction { transaction ->
+
+                db.runTransaction{ transaction ->
                     val snapshot = transaction.get(ref)
                     val newBalance = snapshot.getDouble("balance")!! - amount
                     if(newBalance>=0.00)
                     {
                         db.collection("Users").document(receiver).get().addOnSuccessListener {
-                            if (it.exists() && sender != receiver) {
-
-                                transfer(sender,receiver,amount)
-                                updateHistory(sender,receiver,amount,note)
-                                show("$amount Tk. transfered to $receiver")
+                            if (it.exists() && sender != receiver)
+                            {
+                                transferConfirm(sender,receiver,amount,note)
                             }
-                            else {
-                                if(it.exists()) show("You cant transfer to yourself")
-                                else show("Please fill in a valid mail address")
+                            else
+                            {
+                                if(it.exists())
+                                    show("You cant transfer to yourself")
+                                else
+                                    show("Please fill in a valid mail address")
                             }
                         }
                     }
@@ -145,12 +153,51 @@ class TransferFragment(activity: Activity) : Fragment() {
             {
                 show("please fill in the information")
             }
-
         }
-
     }
 
-    private fun initViews(sender: String) {
+    private fun transferConfirm(sender: String, receiver: String, amount: Double, note: String) {
+
+        val dialogeView=LayoutInflater.from(activity).inflate(R.layout.confirm_pin_dialog,null)
+        val myBuilder= androidx.appcompat.app.AlertDialog.Builder(requireActivity()).setView(dialogeView)
+        val dialog=myBuilder.show()
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val pinTxt:EditText? = dialog.findViewById(R.id.Confirm_pin_text)
+        val confirmButton:Button? = dialog.findViewById(R.id.conirm_pin_button)
+
+        val tranText="Transfer"
+        confirmButton?.text = tranText
+        confirmButton?.setOnClickListener {
+            Log.d("testt", "Button detected")
+            val pin: String = pinTxt?.text.toString()
+            if (pin.isEmpty())
+            {
+                activity?.runOnUiThread{show("Enter correct pin")}
+                Log.d("testt", "Confirmation empty")
+            } else
+            {
+
+                auth.signInWithEmailAndPassword(sender, pin).addOnCompleteListener(requireActivity())
+                { task ->
+                    if (task.isSuccessful) {
+                        Log.d("testt", "Confirmation successful")
+                        transfer(sender,receiver,amount)
+                        updateHistory(sender,receiver,amount,note)
+                        activity?.runOnUiThread{show("$amount Tk. transfered to $receiver")}
+                        dialog.dismiss()
+                    }
+                    else
+                    {
+                        Log.w("testt", "signInWithEmail:failure", task.exception)
+                        activity?.runOnUiThread{show("Enter correct pin")}
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initViews() {
         receiverEmail.setText("")
         transferAmount.setText("")
         balanceAfter.setText("-")
@@ -201,7 +248,7 @@ class TransferFragment(activity: Activity) : Fragment() {
             else
             {
                 val newBalance = snapshot.getDouble(month)!! + amount
-                transaction.update(thisMonthTranRef, month, newBalance)
+                transaction.update(thisMonthTranRef, month, String.format("%.2f",newBalance).toDouble())
             }
             // Success
             null
@@ -220,7 +267,7 @@ class TransferFragment(activity: Activity) : Fragment() {
             else
             {
                 val newBalance = snapshot.getDouble(month)!! + amount
-                transaction.update(thisMonthRecRef, month, newBalance)
+                transaction.update(thisMonthRecRef, month, String.format("%.2f",newBalance).toDouble())
             }
             // Success
             null
@@ -234,11 +281,11 @@ class TransferFragment(activity: Activity) : Fragment() {
         db.runTransaction { transaction ->
             val snapshot = transaction.get(transDocRef)
             val newBalance = snapshot.getDouble("balance")!! - amount
-            transaction.update(transDocRef, "balance", newBalance)
+            transaction.update(transDocRef, "balance", String.format("%.2f",newBalance).toDouble())
             // Success
             null
         }.addOnSuccessListener {
-            initViews(sender)
+            initViews()
             Log.d("Transfer", "Transaction success!") }
                 .addOnFailureListener { e -> Log.w("Transfer", "Transaction failure.", e) }
 
@@ -247,7 +294,7 @@ class TransferFragment(activity: Activity) : Fragment() {
         db.runTransaction { transaction ->
             val snapshot = transaction.get(receivDocRef)
             val newBalance = snapshot.getDouble("balance")!! + amount
-            transaction.update(receivDocRef, "balance", newBalance)
+            transaction.update(receivDocRef, "balance", String.format("%.2f",newBalance).toDouble())
             // Success
             null
         }.addOnSuccessListener { Log.d("Transfer", "Transaction success!") }

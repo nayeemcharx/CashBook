@@ -1,6 +1,9 @@
 package com.example.cashbook.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -72,7 +75,7 @@ class WithdrawFragment(activity: Activity) : Fragment() {
 
         }
 
-        initViews(sender)
+        initViews()
 
         withdrawAmount.addTextChangedListener(object : TextWatcher {
 
@@ -93,7 +96,7 @@ class WithdrawFragment(activity: Activity) : Fragment() {
                             val balance = it["balance"].toString().toDouble()
                             val balAfter= if(!s.isEmpty())
                                 (if(balance - String.format("%.2f",s.toString().toDouble()).toDouble()>=0.0)
-                                    balance - String.format("%.2f",s.toString().toDouble()).toDouble()
+                                    String.format("%.2f",balance - String.format("%.2f",s.toString().toDouble()).toDouble()).toDouble()
                                 else "-")
                             else "-"
                             balanceBefore.setText(balance.toString())
@@ -110,22 +113,27 @@ class WithdrawFragment(activity: Activity) : Fragment() {
                 val amount = String.format("%.2f", withdrawAmount.text.toString().toDouble()).toDouble()
                 val receiver: String = agentEmail.text.toString().trim()
                 val ref: DocumentReference = db.collection("Users").document(sender)
+
                 db.runTransaction { transaction ->
                     val snapshot = transaction.get(ref)
                     val newBalance = snapshot.getDouble("balance")!! - amount
                     if (newBalance >= 0.00) {
-                        db.collection("Agents").document(receiver).get().addOnSuccessListener {
-                            if (it.exists() && sender != receiver) {
-
-                                withdraw(sender, receiver,amount)
-                                updateHistory(sender, receiver, amount,note)
-                                show("$amount Tk. withdrawn via $receiver")
-                            } else {
-                                if (it.exists()) show("You cant transfer to yourself")
-                                else show("Please fill in a valid Agent mail address")
+                        db.collection("Agents").document(receiver).get().addOnSuccessListener{
+                            if (it.exists() && sender != receiver)
+                            {
+                                withdrawConfirm(sender,receiver,amount,note)
+                            }
+                            else
+                            {
+                                if (it.exists())
+                                    show("You cant transfer to yourself")
+                                else
+                                    show("Please fill in a valid Agent mail address")
                             }
                         }
-                    } else {
+                    }
+                    else
+                    {
                         activity?.runOnUiThread { show("Out of balance") }
 
                     }
@@ -140,20 +148,66 @@ class WithdrawFragment(activity: Activity) : Fragment() {
         }
 
     }
-    private fun initViews(sender: String) {
+
+    private fun withdrawConfirm(sender: String, receiver: String, amount: Double, note: String)
+    {
+        val dialogeView=LayoutInflater.from(activity).inflate(R.layout.confirm_pin_dialog,null)
+        val myBuilder= androidx.appcompat.app.AlertDialog.Builder(requireActivity()).setView(dialogeView)
+        val dialog=myBuilder.show()
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val pinTxt:EditText? = dialog.findViewById(R.id.Confirm_pin_text)
+        val confirmButton:Button? = dialog.findViewById(R.id.conirm_pin_button)
+
+        val withText="Withdraw"
+        confirmButton?.text = withText
+        confirmButton?.setOnClickListener {
+            Log.d("testt", "Button detected")
+            val pin: String = pinTxt?.text.toString()
+            if (pin.isEmpty())
+            {
+                activity?.runOnUiThread{show("Enter correct pin")}
+                Log.d("testt", "Confirmation empty")
+            } else
+            {
+
+                auth.signInWithEmailAndPassword(sender, pin).addOnCompleteListener(requireActivity())
+                { task ->
+                    if (task.isSuccessful) {
+                        Log.d("testt", "Confirmation successful")
+                        withdraw(sender, receiver,amount)
+                        updateHistory(sender, receiver, amount,note)
+                        activity?.runOnUiThread{show("$amount Tk. withdrawn via $receiver")}
+                        dialog.dismiss()
+                    }
+                    else
+                    {
+                        Log.w("testt", "signInWithEmail:failure", task.exception)
+                        activity?.runOnUiThread{show("Enter correct pin")}
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun initViews()
+    {
         agentEmail.setText("")
         withdrawAmount.setText("")
         balanceAfter.setText("-")
         withdrawNote.setText("")
     }
 
-    private fun show(message: String) {
+    private fun show(message: String)
+    {
         Toast.makeText(
                 activity?.baseContext, message, Toast.LENGTH_SHORT).show()
 
     }
 
-    private fun updateHistory(sender: String, agent: String, amount: Double,tranNote:String) {
+    private fun updateHistory(sender: String, agent: String, amount: Double,tranNote:String)
+    {
         val historyRefSender: DocumentReference = db.collection(sender).document()
         val currDate = Date()
         val senderData = hashMapOf(
@@ -182,7 +236,7 @@ class WithdrawFragment(activity: Activity) : Fragment() {
             else
             {
                 val newBalance = snapshot.getDouble(month)!! + amount
-                transaction.update(thisMonthWithRef, month, newBalance)
+                transaction.update(thisMonthWithRef, month, String.format("%.2f",newBalance).toDouble())
                 Log.d("tess","tess")
             }
             Log.d("tess","last")
@@ -193,23 +247,24 @@ class WithdrawFragment(activity: Activity) : Fragment() {
 
     }
 
-    private fun withdraw(sender: String,agent: String, amount: Double) {
+    private fun withdraw(sender: String,agent: String, amount: Double)
+    {
         val transDocRef: DocumentReference = db.collection("Users").document(sender)
         db.runTransaction { transaction ->
             val snapshot = transaction.get(transDocRef)
             val newBalance = snapshot.getDouble("balance")!! - amount
-            transaction.update(transDocRef, "balance", newBalance)
+            transaction.update(transDocRef, "balance", String.format("%.2f",newBalance).toDouble())
             // Success
             null
         }.addOnSuccessListener {
-            initViews(sender)
+            initViews()
             Log.d("trans", "Transaction success!") }
                 .addOnFailureListener { e -> Log.w("trans", "Transaction failure.", e) }
         val receivDocRef: DocumentReference = db.collection("Agents").document(agent)
         db.runTransaction { transaction ->
             val snapshot = transaction.get(receivDocRef)
             val newBalance = snapshot.getDouble("balance")!! + amount
-            transaction.update(receivDocRef, "balance", newBalance)
+            transaction.update(receivDocRef, "balance", String.format("%.2f",newBalance).toDouble())
 
             // Success
             null
