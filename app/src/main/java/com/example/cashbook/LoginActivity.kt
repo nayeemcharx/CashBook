@@ -1,26 +1,26 @@
 package com.example.cashbook
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 
-class MainActivity : AppCompatActivity()
+class LoginActivity : AppCompatActivity()
 {
     private lateinit var email: EditText
     private lateinit var pin: EditText
     private lateinit var auth: FirebaseAuth
     private lateinit var signuptxt:TextView
-    private lateinit var db:FirebaseFirestore
+    private lateinit var loginButton:Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
             // User is signed in
@@ -32,33 +32,32 @@ class MainActivity : AppCompatActivity()
             // User is signed out
             Log.d("test", "onAuthStateChanged:signed_out")
         }
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
         email= findViewById(R.id.email_adress)
         pin=findViewById(R.id.pin)
         auth= FirebaseAuth.getInstance()
+
+        loginButton=findViewById(R.id.log_in_button)
+        loginButton.setOnClickListener{
+            val emailTxt=email.text.toString()
+            val pinTxt=pin.text.toString()
+            if(emailTxt.isEmpty() || pinTxt.isEmpty())
+            {
+                Toast.makeText(baseContext, "Please fill in the information",
+                        Toast.LENGTH_SHORT).show()
+            }
+            else
+                login(emailTxt,pinTxt)
+        }
+
         signuptxt=findViewById(R.id.textSignUP)
         signuptxt.setOnClickListener{
-            val intent : Intent = Intent(this,SignUpActivity::class.java)
+            val intent = Intent(this,SignUpActivity::class.java)
             startActivity(intent)
             finish()
         }
 
     }
-
-
-    public fun navToHome(view: View){
-        val emailTxt=email.text.toString()
-        val pinTxt=pin.text.toString()
-        if(emailTxt.isEmpty() || pinTxt.isEmpty())
-        {
-            Toast.makeText(baseContext, "Please fill in the information",
-                    Toast.LENGTH_SHORT).show()
-        }
-        else
-            login(emailTxt,pinTxt)
-
-    }
-
     private fun login(emailTxt: String, pinTxt: String)
     {
 
@@ -69,8 +68,7 @@ class MainActivity : AppCompatActivity()
             if (task.isSuccessful)
             {
                 Log.d("test", "signInWithEmail:success")
-                val user = auth.currentUser
-                val intent : Intent = Intent(this,HomeActivity::class.java)
+                val intent = Intent(this,HomeActivity::class.java)
                 startActivity(intent)
                 finish()
             }

@@ -1,12 +1,8 @@
 package com.example.cashbook.fragments
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.ResultReceiver
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -18,18 +14,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
-import com.example.cashbook.HomeActivity
 import com.example.cashbook.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.type.DateTime
-import org.w3c.dom.Text
+
 import java.util.*
 
 
-class TransferFragment(activity: Activity) : Fragment() {
+class TransferFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
@@ -41,11 +34,6 @@ class TransferFragment(activity: Activity) : Fragment() {
     private lateinit var transferNote:EditText
 
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,7 +65,7 @@ class TransferFragment(activity: Activity) : Fragment() {
             {
                 val balance=snap.getDouble("balance")
                 if(balance!=null)
-                    balanceBefore.setText(balance.toString())
+                    balanceBefore.text = balance.toString()
             }
 
         }
@@ -100,13 +88,13 @@ class TransferFragment(activity: Activity) : Fragment() {
                     db.collection("Users").document(sender).get().addOnSuccessListener {
                         if (it.exists()) {
                             val balance = it["balance"].toString().toDouble()
-                            val balAfter= if(!s.isEmpty())
+                            val balAfter= if(s.isNotEmpty())
                                     (if(balance - String.format("%.2f",s.toString().toDouble()).toDouble()>=0.0)
                                         String.format("%.2f",balance - String.format("%.2f",s.toString().toDouble()).toDouble()).toDouble()
                                     else "-")
                             else "-"
-                            balanceBefore.setText(balance.toString())
-                            balanceAfter.setText(balAfter.toString())
+                            balanceBefore.text = balance.toString()
+                            balanceAfter.text = balAfter.toString()
                         }
                     }
                 }
@@ -114,7 +102,7 @@ class TransferFragment(activity: Activity) : Fragment() {
         })
 
         transferButton.setOnClickListener{
-            if(!transferAmount.text.isEmpty() && !receiverEmail.text.isEmpty()) {
+            if(transferAmount.text.isNotEmpty() && receiverEmail.text.isNotEmpty()) {
                 val note = if(transferNote.text.isEmpty()) "-" else transferNote.text.toString()
                 val amount =  String.format("%.2f", transferAmount.text.toString().toDouble()).toDouble()
                 val receiver: String = receiverEmail.text.toString().trim()
@@ -200,7 +188,7 @@ class TransferFragment(activity: Activity) : Fragment() {
     private fun initViews() {
         receiverEmail.setText("")
         transferAmount.setText("")
-        balanceAfter.setText("-")
+        balanceAfter.text = "-"
         transferNote.setText("")
     }
 

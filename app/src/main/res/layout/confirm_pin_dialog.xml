@@ -11,14 +11,15 @@
         android:id="@+id/Confirm_pin_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Confirm PIN"
+        android:hint="@string/confirm_pin_tran_with"
         android:layout_marginTop="15dp"
         android:backgroundTint="@color/gray"
         android:drawableStart="@drawable/ic_baseline_lock_24"
         android:drawablePadding="12dp"
         android:inputType="numberPassword"
         android:textColor="@color/white"
-        android:textColorHint="@color/gray"/>
+        android:textColorHint="@color/gray"
+        android:autofillHints="pin" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +29,6 @@
             android:id="@+id/conirm_pin_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_marginTop="15dp"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"

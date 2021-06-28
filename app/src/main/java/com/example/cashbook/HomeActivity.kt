@@ -1,9 +1,7 @@
 package com.example.cashbook
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.cashbook.fragments.HistoryFragment
 import com.example.cashbook.fragments.ProfileFragment
@@ -11,17 +9,11 @@ import com.example.cashbook.fragments.TransferFragment
 import com.example.cashbook.fragments.WithdrawFragment
 import com.example.cashbook.fragments.adapters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
     private lateinit var viewPager : ViewPager
     private lateinit var tabs: TabLayout
-    private lateinit var transferButton:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +27,10 @@ class HomeActivity : AppCompatActivity() {
     private fun setUpTabs(){
 
         val adapter=ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(ProfileFragment(this),title = "Profile")
-        adapter.addFragment(TransferFragment(this),title = "Transfer")
-        adapter.addFragment(WithdrawFragment(this),title = "withdraw")
-        adapter.addFragment(HistoryFragment(this),title = "History")
+        adapter.addFragment(ProfileFragment(),title = "Profile")
+        adapter.addFragment(TransferFragment(),title = "Transfer")
+        adapter.addFragment(WithdrawFragment(),title = "withdraw")
+        adapter.addFragment(HistoryFragment(),title = "History")
 
 
 

@@ -1,7 +1,5 @@
 package com.example.cashbook.fragments
 
-import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,18 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
-import com.example.cashbook.MainActivity
+import com.example.cashbook.LoginActivity
 import com.example.cashbook.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import io.armcha.elasticview.ElasticView
-import org.w3c.dom.Text
 import java.util.*
 
 
-class ProfileFragment(activity: Activity) : Fragment()
+class ProfileFragment : Fragment()
 {
 
     private lateinit var auth: FirebaseAuth
@@ -33,11 +28,6 @@ class ProfileFragment(activity: Activity) : Fragment()
     private lateinit var spentMoney:TextView
     private lateinit var receivedMoney:TextView
     private lateinit var withdrawnMoney:TextView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,8 +52,7 @@ class ProfileFragment(activity: Activity) : Fragment()
 
 
         val currentUser = auth.currentUser
-        val userID:String=currentUser!!.uid
-        val email:String = currentUser.email!!
+        val email:String = currentUser!!.email!!
         val documentReference: DocumentReference = db.collection("Users").document(email)
         documentReference.addSnapshotListener{ snapshot, e ->
             if (e != null) {
@@ -75,12 +64,12 @@ class ProfileFragment(activity: Activity) : Fragment()
             {
                 val fullname=snapshot.getString("full_name")
                 val date=snapshot.getDate("creation_date")
-                var bal=snapshot.getDouble("balance")
+                val bal=snapshot.getDouble("balance")
 
                 if(fullname!=null)
                 {
                     Log.d("full name",fullname)
-                    fullName.setText(fullname)
+                    fullName.text = fullname
                 }
                 if(date!=null)
                 {
@@ -91,7 +80,8 @@ class ProfileFragment(activity: Activity) : Fragment()
                 if(bal!=null)
                 {
                     Log.d("balance", bal.toString())
-                    balance.setText(bal.toString())
+                    val balanceText= "৳$bal"
+                    balance.text = balanceText
 
                 }
 
@@ -108,7 +98,7 @@ class ProfileFragment(activity: Activity) : Fragment()
         logOutButton.setOnClickListener{
             auth.signOut()
             requireActivity().run{
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
         }
@@ -134,25 +124,25 @@ class ProfileFragment(activity: Activity) : Fragment()
                 val money=snapshot.getDouble(month)
                 if(money!=null)
                 {
-                    val adder="৳"+money.toString()
-                    if(order==1) spentMoney.setText(adder)
-                    if(order==2) receivedMoney.setText(adder)
+                    val adder= "৳$money"
+                    if(order==1) spentMoney.text = adder
+                    if(order==2) receivedMoney.text = adder
                     if(order==3)
                     {
-                        val newAdder="You have withdrawn ${adder} in this month."
-                        withdrawnMoney.setText(newAdder)
+                        val newAdder="You have withdrawn $adder in this month."
+                        withdrawnMoney.text = newAdder
                     }
                 }
             }
             else
             {
                 val adder="৳0"
-                if(order==1) spentMoney.setText(adder)
-                if(order==2) receivedMoney.setText(adder)
+                if(order==1) spentMoney.text = adder
+                if(order==2) receivedMoney.text = adder
                 if(order==3)
                 {
                     val newAdder="You have withdrawn ৳0 in this month."
-                    withdrawnMoney.setText(newAdder)
+                    withdrawnMoney.text = newAdder
                 }
                 Log.d("tesss", "Current data: null")
             }

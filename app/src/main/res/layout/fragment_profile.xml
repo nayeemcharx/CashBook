@@ -36,7 +36,7 @@
                 android:fontFamily="@font/alike_angular"
                 android:gravity="center"
                 android:lineSpacingExtra="11sp"
-                android:text="৳"
+                android:text="@string/taka_sign"
                 android:textColor="@color/white"
                 android:textSize="35sp"
                 android:textStyle="bold">
@@ -57,8 +57,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_baseline_account_box_24">
-
+                android:src="@drawable/ic_baseline_account_box_24"
+                android:contentDescription="@string/pfp_desc">
             </ImageView>
 
 
@@ -81,7 +81,7 @@
                 android:fontFamily="@font/alike_angular"
                 android:gravity="center"
                 android:lineSpacingExtra="5sp"
-                android:text="Available balance"
+                android:text="@string/available_balance_text"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold">
@@ -103,11 +103,9 @@
                 android:fontFamily="@font/alike_angular"
                 android:gravity="center"
                 android:lineSpacingExtra="5sp"
-                android:text="Rafid Ahmed"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold">
-
 
             </TextView>
 
@@ -148,10 +146,10 @@
                         android:id="@+id/spent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
+                        android:layout_marginStart="35dp"
                         android:fontFamily="@font/alike_angular"
                         android:lineSpacingExtra="3sp"
-                        android:text="Transfered"
+                        android:text="@string/transfer_month_text"
                         android:textColor="#1c1939"
                         android:textSize="15sp"
                         android:textStyle="bold">
@@ -168,11 +166,11 @@
                         android:id="@+id/earned"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginStart="23dp"
+                        android:layout_marginEnd="15dp"
                         android:fontFamily="@font/alike_angular"
                         android:lineSpacingExtra="3sp"
-                        android:text="Received"
+                        android:text="@string/received_month_text"
                         android:textColor="#1c1939"
                         android:textSize="15sp"
                         android:textStyle="bold">
@@ -191,7 +189,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_baseline_remove_circle_24">
+                        android:src="@drawable/ic_baseline_remove_circle_24"
+                        android:contentDescription="@string/transfer_img_desc">
 
                     </ImageView>
 
@@ -203,7 +202,7 @@
                         android:layout_marginStart="12dp"
                         android:fontFamily="@font/alike_angular"
                         android:lineSpacingExtra="7sp"
-                        android:text="Tk. -"
+                        android:text="@string/taka_sign"
                         android:textColor="#1c1939"
                         android:textSize="24sp"
                         android:textStyle="bold">
@@ -221,7 +220,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_baseline_add_circle_24">
+                        android:src="@drawable/ic_baseline_add_circle_24"
+                        android:contentDescription="@string/montly_with_img_desc">
 
                     </ImageView>
 
@@ -233,11 +233,10 @@
                         android:layout_marginStart="12dp"
                         android:fontFamily="@font/alike_angular"
                         android:lineSpacingExtra="7sp"
-                        android:text="Tk.-"
+                        android:text="@string/taka_sign"
                         android:textColor="#1c1939"
                         android:textSize="24sp"
                         android:textStyle="bold">
-
                     </TextView>
 
                 </LinearLayout>
@@ -257,7 +256,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="50dp"
                         android:fontFamily="@font/alike_angular"
-                        android:text="You have withdrawn Tk.- in this month."
+                        android:text="@string/withdraw_taka_message"
                         android:textColor="#000000"
                         android:textSize="15sp"
                         android:textStyle="bold">
@@ -269,12 +268,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:fontFamily="@font/alike_angular"
-                        android:text="Tell me more"
+                        android:text="@string/rickroll"
                         android:textColor="@color/blue"
                         android:textSize="15sp">
-
                     </TextView>
-
 
                 </LinearLayout>
 
@@ -291,7 +288,7 @@
             android:background="@drawable/button_background_color2"
             android:fontFamily="@font/alike_angular"
             android:padding="10dp"
-            android:text="Sign out"
+            android:text="@string/signout_button_text"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="20sp" />

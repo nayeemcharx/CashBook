@@ -16,7 +16,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginRight="22dp"
         android:fontFamily="@font/alike_angular"
-        android:text="Agent Account :"
+        android:text="@string/agent_to_text"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -34,14 +34,15 @@
         android:layout_marginRight="22dp"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/alike_angular"
-        android:hint="Email"
+        android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/withdraw_to">
+        app:layout_constraintTop_toBottomOf="@id/withdraw_to"
+        android:autofillHints="Email Address">
 
     </EditText>
 
@@ -53,7 +54,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginRight="22dp"
         android:fontFamily="@font/alike_angular"
-        android:text="Amount :"
+        android:text="@string/amount_text"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -70,14 +71,15 @@
         android:layout_marginRight="22dp"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/alike_angular"
-        android:hint="Amount"
+        android:hint="@string/amount_hint"
         android:inputType="number|numberDecimal"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/amountTxt">
+        app:layout_constraintTop_toBottomOf="@id/amountTxt"
+        android:autofillHints="money">
 
     </EditText>
 
@@ -90,7 +92,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginRight="22dp"
         android:fontFamily="@font/alike_angular"
-        android:text="Note :"
+        android:text="@string/note_text"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -107,7 +109,7 @@
         android:layout_marginRight="22dp"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/alike_angular"
-        android:hint="Optional"
+        android:hint="@string/note_hint"
         android:inputType="textShortMessage"
         android:maxLength="30"
         android:textColor="@color/white"
@@ -115,7 +117,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/noteTxt">
+        app:layout_constraintTop_toBottomOf="@id/noteTxt"
+        android:autofillHints="note">
 
     </EditText>
 
@@ -138,7 +141,7 @@
             android:layout_marginTop="35dp"
             android:layout_marginRight="22dp"
             android:fontFamily="@font/alike_angular"
-            android:text="Current Balance :"
+            android:text="@string/current_before_balance_text"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -154,11 +157,11 @@
             android:id="@+id/current_balance_withdraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="35dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:fontFamily="@font/alike_angular"
-            android:text="Tk-"
+            android:text="@string/taka_sign"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -184,7 +187,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="22dp"
             android:fontFamily="@font/alike_angular"
-            android:text="After Withdraw :"
+            android:text="@string/after_withdraw_balance_text"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -200,11 +203,11 @@
             android:id="@+id/balance_after_withdraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:fontFamily="@font/alike_angular"
-            android:text="Tk-"
+            android:text="@string/taka_sign"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -220,7 +223,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/button_background_color2"
         android:fontFamily="@font/alike_angular"
-        android:text="Withdraw"
+        android:text="@string/withdraw_button_text"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

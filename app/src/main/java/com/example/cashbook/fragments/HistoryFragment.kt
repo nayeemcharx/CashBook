@@ -1,6 +1,5 @@
 package com.example.cashbook.fragments
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,27 +10,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.cashbook.*
-import com.example.cashbook.fragments.adapters.historyAdapter
+import com.example.cashbook.fragments.adapters.HistoryAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlin.collections.ArrayList
 
 
-class HistoryFragment(activity: Activity) : Fragment() {
+class HistoryFragment : Fragment() {
 
-    private lateinit var Item: RecyclerView
+    private lateinit var itemRecyclerView:RecyclerView
     private lateinit var auth: FirebaseAuth
-    private lateinit var recyclerAdapter: historyAdapter
+    private lateinit var recyclerAdapter: HistoryAdapter
     private lateinit var recyclerLayoutManager: RecyclerView.LayoutManager
     private lateinit var db: FirebaseFirestore
     private lateinit var refresh: SwipeRefreshLayout
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
 
     override fun onCreateView(
@@ -50,7 +43,7 @@ class HistoryFragment(activity: Activity) : Fragment() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        Item = view.findViewById(R.id.history_items)
+        itemRecyclerView = view.findViewById(R.id.history_items)
         refresh = view.findViewById(R.id.swipTorefresh)
         refresh.isRefreshing=true
         updateItemViews()
@@ -67,8 +60,8 @@ class HistoryFragment(activity: Activity) : Fragment() {
         val currentUser = auth.currentUser
         val email = currentUser!!.email!!
         recyclerLayoutManager = LinearLayoutManager(activity)
-        recyclerAdapter = historyAdapter(itemList)
-        Item.apply {
+        recyclerAdapter = HistoryAdapter(itemList)
+        itemRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = recyclerLayoutManager
             adapter = recyclerAdapter

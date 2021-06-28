@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class SignUpActivity : AppCompatActivity()
@@ -23,6 +22,7 @@ class SignUpActivity : AppCompatActivity()
     private lateinit var confirmPin:EditText
     private lateinit var auth:FirebaseAuth
     private lateinit var cancel:TextView
+    private lateinit var signUpButton:Button
     private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -36,31 +36,32 @@ class SignUpActivity : AppCompatActivity()
         auth= FirebaseAuth.getInstance()
         db= FirebaseFirestore.getInstance()
 
+        signUpButton=findViewById(R.id.Sign_Up)
+        signUpButton.setOnClickListener{
+            val fullnameTxt=fullName.text.toString()
+            val emailTxt: String = email.text.toString()
+            val pinTxt: String = pin.text.toString()
+            val confirmPinTxt: String = confirmPin.text.toString()
+            if(emailTxt.isEmpty() || pinTxt.isEmpty() || confirmPinTxt.isEmpty() || fullnameTxt.isEmpty())
+            {
+                Toast.makeText(
+                        baseContext, "Please fill in the information", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                if (pinTxt == confirmPinTxt)
+                    signUp(emailTxt,pinTxt,fullnameTxt)
+                else {
+                    Toast.makeText(baseContext, "Password Doesn't match.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         cancel=findViewById(R.id.textLogin)
         cancel.setOnClickListener{
-            val intent: Intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
-        }
-    }
-    public fun signUpCLick(view: View) {
-
-        val fullnameTxt=fullName.text.toString()
-        val emailTxt: String = email.text.toString()
-        val pinTxt: String = pin.text.toString()
-        val confirmPinTxt: String = confirmPin.text.toString()
-        if(emailTxt.isEmpty() || pinTxt.isEmpty() || confirmPinTxt.isEmpty() || fullnameTxt.isEmpty())
-        {
-            Toast.makeText(
-                    baseContext, "Please fill in the information", Toast.LENGTH_SHORT).show()
-        }
-        else
-        {
-            if (pinTxt == confirmPinTxt)
-                signUp(emailTxt,pinTxt,fullnameTxt)
-            else {
-                Toast.makeText(baseContext, "Password Doesn't match.", Toast.LENGTH_SHORT).show()
-            }
         }
     }
     private fun signUp(emailTxt: String, pinTxt: String,fullnameTxt: String)
@@ -72,8 +73,7 @@ class SignUpActivity : AppCompatActivity()
             {
                 Log.d("tag", "createUserWithEmail:success")
                 val currentUser = auth.currentUser
-                val userID=currentUser!!.uid
-                val email:String = currentUser.email!!
+                val email:String = currentUser!!.email!!
                 val documentReference: DocumentReference = db.collection("Users").document(email)
                 val currDate= Date()
                 val user = hashMapOf(
@@ -83,7 +83,7 @@ class SignUpActivity : AppCompatActivity()
                 )
                 documentReference.set(user).addOnSuccessListener{ Log.d("test", "DocumentSnapshot successfully written!") }
                         .addOnFailureListener { e -> Log.w("test", "Error writing document", e) }
-                val intent: Intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
 

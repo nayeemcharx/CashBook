@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alike_angular"
-        android:text="Sign Up"
+        android:text="@string/sign_up_text"
         android:textColor="@color/white"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,10 +54,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/gray"
-            android:hint="Full Name"
+            android:hint="@string/full_name_signup_text"
             android:inputType="textPersonName"
             android:textColor="@color/white"
-            android:textColorHint="@color/gray" />
+            android:textColorHint="@color/gray"
+            android:autofillHints="Full Name" />
 
         <EditText
             android:id="@+id/emailSignUp"
@@ -65,9 +66,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/gray"
-            android:hint="Email Address"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email_address_signup_text"
             android:textColor="@color/white"
-            android:textColorHint="@color/gray" />
+            android:textColorHint="@color/gray"
+            android:autofillHints="Email Address" />
 
         <EditText
             android:id="@+id/pinSignUp"
@@ -75,10 +78,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/gray"
-            android:hint="Pin"
+            android:hint="@string/pin_signup"
             android:inputType="numberPassword"
             android:textColor="@color/white"
-            android:textColorHint="@color/gray" />
+            android:textColorHint="@color/gray"
+            android:autofillHints="pin" />
 
         <EditText
             android:id="@+id/ConfirmPin"
@@ -86,10 +90,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/gray"
-            android:hint="Confirm Pin"
+            android:hint="@string/confirmpin_signup"
             android:inputType="numberPassword"
             android:textColor="@color/white"
-            android:textColorHint="@color/gray" />
+            android:textColorHint="@color/gray"
+            android:autofillHints="pin" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -108,9 +113,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
             android:background="@drawable/button_background_color"
-            android:onClick="signUpCLick"
             android:padding="5dp"
-            android:text="SIGN UP"
+            android:text="@string/signup_button_text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="22sp" />
@@ -134,7 +138,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account?"
+            android:text="@string/accounthave_signup"
             android:textColor="@color/gray"
             android:textSize="16sp" />
 

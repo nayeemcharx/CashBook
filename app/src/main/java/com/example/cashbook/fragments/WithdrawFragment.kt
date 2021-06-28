@@ -1,7 +1,5 @@
 package com.example.cashbook.fragments
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -16,7 +14,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.example.cashbook.HomeActivity
 import com.example.cashbook.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -24,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 
-class WithdrawFragment(activity: Activity) : Fragment() {
+class WithdrawFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
@@ -34,11 +31,6 @@ class WithdrawFragment(activity: Activity) : Fragment() {
     private lateinit var balanceBefore: TextView
     private lateinit var balanceAfter: TextView
     private lateinit var withdrawNote:EditText
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +62,7 @@ class WithdrawFragment(activity: Activity) : Fragment() {
             {
                 val balance=snap.getDouble("balance")
                 if(balance!=null)
-                    balanceBefore.setText(balance.toString())
+                    balanceBefore.text = balance.toString()
             }
 
         }
@@ -94,13 +86,13 @@ class WithdrawFragment(activity: Activity) : Fragment() {
                     db.collection("Users").document(sender).get().addOnSuccessListener {
                         if (it.exists()) {
                             val balance = it["balance"].toString().toDouble()
-                            val balAfter= if(!s.isEmpty())
+                            val balAfter= if(s.isNotEmpty())
                                 (if(balance - String.format("%.2f",s.toString().toDouble()).toDouble()>=0.0)
                                     String.format("%.2f",balance - String.format("%.2f",s.toString().toDouble()).toDouble()).toDouble()
                                 else "-")
                             else "-"
-                            balanceBefore.setText(balance.toString())
-                            balanceAfter.setText(balAfter.toString())
+                            balanceBefore.text = balance.toString()
+                            balanceAfter.text = balAfter.toString()
                         }
                     }
                 }
@@ -108,7 +100,7 @@ class WithdrawFragment(activity: Activity) : Fragment() {
         })
 
         withdrawButton.setOnClickListener {
-            if (!withdrawAmount.text.isEmpty() && !agentEmail.text.isEmpty()) {
+            if (withdrawAmount.text.isNotEmpty() && agentEmail.text.isNotEmpty()) {
                 val note = if(withdrawNote.text.isEmpty()) "-" else withdrawNote.text.toString()
                 val amount = String.format("%.2f", withdrawAmount.text.toString().toDouble()).toDouble()
                 val receiver: String = agentEmail.text.toString().trim()
@@ -195,7 +187,7 @@ class WithdrawFragment(activity: Activity) : Fragment() {
     {
         agentEmail.setText("")
         withdrawAmount.setText("")
-        balanceAfter.setText("-")
+        balanceAfter.text = "-"
         withdrawNote.setText("")
     }
 

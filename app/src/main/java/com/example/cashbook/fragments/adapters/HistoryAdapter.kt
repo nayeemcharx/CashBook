@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cashbook.R
 import com.example.cashbook.fragments.History
 
-class historyAdapter(private val item:ArrayList<History>): RecyclerView.Adapter<historyAdapter.ViewHolder>() {
+class HistoryAdapter(private val item:ArrayList<History>): RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
     class ViewHolder(val constraintLayout: ConstraintLayout) :
         RecyclerView.ViewHolder(constraintLayout)
 
@@ -29,12 +29,11 @@ class historyAdapter(private val item:ArrayList<History>): RecyclerView.Adapter<
         //val tranId=constraintLayout.getChildAt(3) as TextView
         val note=constraintLayout.getChildAt(3) as TextView
         dateTime.text=item[position].getDate()
-        if(item[position].getCheck()=="1")
-            amount.setTextColor(Color.GREEN)
-        else if(item[position].getCheck()=="2")
-            amount.setTextColor(Color.parseColor("#ff6600"))
-        else
-            amount.setTextColor(Color.RED)
+        when {
+            item[position].getCheck()=="1" -> amount.setTextColor(Color.GREEN)
+            item[position].getCheck()=="2" -> amount.setTextColor(Color.parseColor("#ff6600"))
+            else -> amount.setTextColor(Color.RED)
+        }
         val amountTxt="৳"+item[position].getAmount()
         amount.text=amountTxt
         val beforeTxt=if(item[position].getCheck()=="0") "Transfered to " else if(item[position].getCheck()=="1") "Received from " else "Withdrawn via "

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alike_angular"
-        android:text="Login"
+        android:text="@string/login_text"
         android:textColor="@color/white"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,10 +49,11 @@
             android:backgroundTint="@color/gray"
             android:drawableStart="@drawable/ic_baseline_email_24"
             android:drawablePadding="12dp"
-            android:hint="Email Address"
+            android:hint="@string/email_address"
             android:inputType="textEmailAddress"
             android:textColor="@color/white"
-            android:textColorHint="@color/gray" />
+            android:textColorHint="@color/gray"
+            android:autofillHints="Email Address" />
 
         <EditText
             android:id="@+id/pin"
@@ -62,10 +63,11 @@
             android:backgroundTint="@color/gray"
             android:drawableStart="@drawable/ic_baseline_lock_24"
             android:drawablePadding="12dp"
-            android:hint="PIN"
+            android:hint="@string/pin"
             android:inputType="numberPassword"
             android:textColor="@color/white"
-            android:textColorHint="@color/gray" />
+            android:textColorHint="@color/gray"
+            android:autofillHints="pin" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/log_in_button"
@@ -74,9 +76,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
             android:background="@drawable/button_background_color"
-            android:onClick="navToHome"
             android:padding="10dp"
-            android:text="Log In"
+            android:text="@string/log_in_button_text"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="22sp" />
@@ -97,7 +98,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account?"
+            android:text="@string/not_account_text"
             android:textColor="@color/gray"
             android:textSize="16sp" />
 

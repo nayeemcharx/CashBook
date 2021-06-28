@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="120dp"
     android:clickable="true"
@@ -13,7 +11,7 @@
         android:id="@+id/date_of_transaction"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
         android:fontFamily="@font/alike_angular"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/Transaction_from"
@@ -37,13 +35,13 @@
         app:layout_constraintStart_toEndOf="@+id/date_of_transaction"
         app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"
-        android:layout_marginRight="8dp"/>
+        android:layout_marginEnd="8dp"/>
 
     <TextView
         android:id="@+id/Transaction_from"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
         android:fontFamily="@font/alike_angular"
         android:textSize="19sp"
         app:layout_constraintBottom_toTopOf="@id/note_history"
@@ -59,7 +57,7 @@
         android:id="@+id/note_history"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
         android:fontFamily="@font/alike_angular"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

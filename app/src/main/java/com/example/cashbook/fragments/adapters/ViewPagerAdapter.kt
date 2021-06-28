@@ -1,8 +1,6 @@
 package com.example.cashbook.fragments.adapters
 
-import android.app.Activity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
@@ -21,7 +19,7 @@ class ViewPagerAdapter(supportFragmentManager: FragmentManager): FragmentPagerAd
 
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return mFragmentTitleList[position]
     }
 
