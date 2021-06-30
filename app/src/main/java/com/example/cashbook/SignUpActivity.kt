@@ -8,9 +8,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 
 
@@ -86,6 +88,7 @@ class SignUpActivity : AppCompatActivity()
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
+                addToken()
 
             }
             else
@@ -97,5 +100,22 @@ class SignUpActivity : AppCompatActivity()
                 ).show()
             }
         }
+    }
+    private fun addToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("testtt", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            val token = task.result
+            val currEmail:String = FirebaseAuth.getInstance().currentUser!!.email!!
+            val documentReference: DocumentReference = db.collection("Tokens").document(currEmail)
+            val data = hashMapOf(
+                    "token" to token.toString().trim()
+            )
+            documentReference.set(data).addOnSuccessListener{ Log.d("test", "DocumentSnapshot successfully written!") }
+                    .addOnFailureListener { e -> Log.w("test", "Error writing document", e) }
+
+        })
     }
 }

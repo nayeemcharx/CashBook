@@ -21,6 +21,8 @@ class HomeActivity : AppCompatActivity() {
         viewPager=findViewById(R.id.viewPager)
         tabs=findViewById(R.id.tabs)
         setUpTabs()
+        if(intent.getBooleanExtra("history?",false))
+            viewPager.currentItem=3
     }
 
 
@@ -37,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
 
         viewPager.adapter=adapter
         tabs.setupWithViewPager(viewPager)
-
 
         tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_account_box_24)
         tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_transfer_within_a_station_24)

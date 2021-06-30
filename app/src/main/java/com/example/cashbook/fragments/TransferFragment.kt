@@ -14,10 +14,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.example.cashbook.AppConstants.AppConstants
 import com.example.cashbook.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import org.json.JSONObject
 
 import java.util.*
 
@@ -285,9 +290,75 @@ class TransferFragment : Fragment() {
             transaction.update(receivDocRef, "balance", String.format("%.2f",newBalance).toDouble())
             // Success
             null
-        }.addOnSuccessListener { Log.d("Transfer", "Transaction success!") }
+        }.addOnSuccessListener {
+            getToken("$sender sent ৳$amount to your account",receiver)
+            Log.d("Transfer", "Transaction success!") }
                 .addOnFailureListener { e -> Log.w("Transfer", "Transaction failure.", e) }
 
+    }
+
+    private fun getToken(message: String,receiver: String)
+    {
+
+
+        db.collection("Tokens").document(receiver).get().addOnSuccessListener {
+            if (it.exists())
+            {
+                val token=it["token"].toString().trim()
+                val to = JSONObject()
+                val data = JSONObject()
+                Log.d("testt",":p")
+
+                data.put("title", "Cashbook")
+                data.put("message", message)
+
+                to.put("to", token)
+                to.put("data", data)
+                sendNotification(to)
+            }
+            else
+            {
+                Log.d("Transfer","token doesnt exist")
+            }
+        }
+
+    }
+
+    private fun sendNotification(to: JSONObject)
+    {
+
+        val request: JsonObjectRequest = object : JsonObjectRequest(
+                Method.POST,
+                AppConstants.NOTIFICATION_URL,
+                to,
+                com.android.volley.Response.Listener { response: JSONObject ->
+
+                    Log.d("testt", "onResponse: $response")
+                },
+                com.android.volley.Response.ErrorListener {
+
+                    Log.d("testt", "onError: $it")
+                }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val map: MutableMap<String, String> = HashMap()
+
+                map["Authorization"] = "key=" + AppConstants.SERVER_KEY
+                map["Content-type"] = "application/json"
+                return map
+            }
+
+            override fun getBodyContentType(): String {
+                return "application/json"
+            }
+        }
+        val requestQueue = Volley.newRequestQueue(activity)
+        request.retryPolicy = DefaultRetryPolicy(
+                30000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        )
+        Log.d("testt",":p")
+        requestQueue.add(request)
     }
 
 }

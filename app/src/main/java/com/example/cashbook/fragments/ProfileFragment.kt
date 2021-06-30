@@ -3,12 +3,12 @@ package com.example.cashbook.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.cashbook.LoginActivity
 import com.example.cashbook.R
 import com.google.firebase.auth.FirebaseAuth
@@ -96,7 +96,10 @@ class ProfileFragment : Fragment()
         updateMoneyText(3,email)
         logOutButton=view.findViewById(R.id.log_out_button)
         logOutButton.setOnClickListener{
+
+            val emailToRemove=auth.currentUser!!.email!!
             auth.signOut()
+            removeToken(emailToRemove)
             requireActivity().run{
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
@@ -147,6 +150,17 @@ class ProfileFragment : Fragment()
                 Log.d("tesss", "Current data: null")
             }
         }
+    }
+
+    private fun removeToken(currEmail:String) {
+
+        val tokenRef: DocumentReference = db.collection("Tokens").document(currEmail)
+        val data= hashMapOf(
+                "token" to "nun")
+        tokenRef.set(data).addOnSuccessListener{ Log.d("test", "DocumentSnapshot successfully written!") }
+                    .addOnFailureListener { e -> Log.w("test", "Error writing document", e) }
+
+
     }
 
 }
