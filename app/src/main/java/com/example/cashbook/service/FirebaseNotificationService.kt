@@ -48,8 +48,8 @@ class FirebaseNotificationService : FirebaseMessagingService() {
 
         FirebaseFirestore.getInstance()
                 .collection("Tokens")
-                .document(email).set(data).addOnSuccessListener{ Log.d("service", "DocumentSnapshot successfully written!") }
-                .addOnFailureListener { e -> Log.w("service", "Error writing document", e) }
+                .document(email).set(data).addOnSuccessListener{ Log.d("logictext", "DocumentSnapshot successfully written!") }
+                .addOnFailureListener { e -> Log.w("logictext", "Error writing document", e) }
 
     }
 

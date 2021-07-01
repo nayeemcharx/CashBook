@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.cashbook.*
 import com.example.cashbook.fragments.adapters.HistoryAdapter
+import com.example.cashbook.fragments.historydata.HistoryData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -56,7 +57,7 @@ class HistoryFragment : Fragment() {
     private fun updateItemViews()
     {
 
-        val itemList = ArrayList<History>()
+        val itemList = ArrayList<HistoryData>()
         val currentUser = auth.currentUser
         val email = currentUser!!.email!!
         recyclerLayoutManager = LinearLayoutManager(activity)
@@ -79,7 +80,7 @@ class HistoryFragment : Fragment() {
                     val dealer = document["dealer"]!!.toString()
                     val time = document["date"] as com.google.firebase.Timestamp
                     val note = document["note"]
-                    val historyItem = History(amount, srw, dealer, time, document.id)
+                    val historyItem = HistoryData(amount, srw, dealer, time, document.id)
                     if (note != null)
                         historyItem.setNote(note.toString())
                     itemList.add(historyItem)

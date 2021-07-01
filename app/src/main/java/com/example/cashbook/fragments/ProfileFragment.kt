@@ -2,6 +2,8 @@ package com.example.cashbook.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,8 +32,8 @@ class ProfileFragment : Fragment()
     private lateinit var withdrawnMoney:TextView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
         // Inflate the layout for this fragment
@@ -68,12 +70,12 @@ class ProfileFragment : Fragment()
 
                 if(fullname!=null)
                 {
-                    Log.d("full name",fullname)
+                    Log.d("full name", fullname)
                     fullName.text = fullname
                 }
                 if(date!=null)
                 {
-                    Log.d("full name",date.toString())
+                    Log.d("full name", date.toString())
                     //textview.setText(date.toString)
                     // or modifying how date looks like instead of like "June 20, 2021 at 4:05:24 PM UTC+6"
                 }
@@ -91,15 +93,17 @@ class ProfileFragment : Fragment()
                 Log.d("test", "Current data: null")
             }
         }
-        updateMoneyText(1,email)
-        updateMoneyText(2,email)
-        updateMoneyText(3,email)
+        updateMoneyText(1, email)
+        updateMoneyText(2, email)
+        updateMoneyText(3, email)
         logOutButton=view.findViewById(R.id.log_out_button)
         logOutButton.setOnClickListener{
 
             val emailToRemove=auth.currentUser!!.email!!
             auth.signOut()
-            removeToken(emailToRemove)
+            Handler(Looper.getMainLooper()).postDelayed({
+                     removeToken(emailToRemove)
+            }, 1000)
             requireActivity().run{
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
@@ -111,7 +115,7 @@ class ProfileFragment : Fragment()
 
     }
 
-    private fun updateMoneyText(order: Int,email:String)
+    private fun updateMoneyText(order: Int, email: String)
     {
         val choose = if(order==1)"monthlyTransfer" else if(order==2) "monthlyReceived" else "monthlyWithdraw"
         val spent: DocumentReference = db.collection(choose).document(email)
@@ -136,29 +140,35 @@ class ProfileFragment : Fragment()
                         withdrawnMoney.text = newAdder
                     }
                 }
+                else
+                    refreshMonth(order)
             }
             else
-            {
-                val adder="৳0"
-                if(order==1) spentMoney.text = adder
-                if(order==2) receivedMoney.text = adder
-                if(order==3)
-                {
-                    val newAdder="You have withdrawn ৳0 in this month."
-                    withdrawnMoney.text = newAdder
-                }
-                Log.d("tesss", "Current data: null")
-            }
+                refreshMonth(order)
         }
     }
 
-    private fun removeToken(currEmail:String) {
+    private fun refreshMonth(order: Int)
+    {
+        val adder="৳0"
+        if(order==1) spentMoney.text = adder
+        if(order==2) receivedMoney.text = adder
+        if(order==3)
+        {
+            val newAdder="You have withdrawn ৳0 in this month."
+            withdrawnMoney.text = newAdder
+        }
+        Log.d("tesss", "Current data: null")
+    }
+
+
+    private fun removeToken(currEmail: String) {
 
         val tokenRef: DocumentReference = db.collection("Tokens").document(currEmail)
         val data= hashMapOf(
                 "token" to "nun")
-        tokenRef.set(data).addOnSuccessListener{ Log.d("test", "DocumentSnapshot successfully written!") }
-                    .addOnFailureListener { e -> Log.w("test", "Error writing document", e) }
+        tokenRef.set(data).addOnSuccessListener{ Log.d("logictext", "DocumentSnapshot successfully written!") }
+                    .addOnFailureListener { e -> Log.w("logictext", "Error writing document", e) }
 
 
     }

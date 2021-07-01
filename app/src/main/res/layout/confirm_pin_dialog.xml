@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="20dp"
-   android:background="@drawable/confirm_pin_background">
+    android:background="@drawable/confirm_pin_background">
 
     <EditText
         android:id="@+id/Confirm_pin_text"
@@ -31,9 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear2"
             android:background="@drawable/button_background_color2"
             android:fontFamily="@font/alike_angular">
         </androidx.appcompat.widget.AppCompatButton>

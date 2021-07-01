@@ -9,7 +9,7 @@
 
 
     <LinearLayout
-        android:id="@+id/linear1"
+        android:id="@+id/linear_profile_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -20,7 +20,7 @@
 
 
         <LinearLayout
-            android:id="@+id/linear_horizontal_1"
+            android:id="@+id/linear_profile_1_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
@@ -65,7 +65,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linear_horizontal_2"
+            android:id="@+id/linear_profile_1_horizontal_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
@@ -129,14 +129,14 @@
 
 
             <LinearLayout
-                android:id="@+id/linear3"
+                android:id="@+id/linear_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="21dp"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/linear_3_child_1"
+                    android:id="@+id/linear_card_child_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -180,7 +180,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/linear_3_child_2"
+                    android:id="@+id/linear_card_1_child_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -243,7 +243,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/linear4"
+                    android:id="@+id/linear_card_1_child_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"

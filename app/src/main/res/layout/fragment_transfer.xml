@@ -47,7 +47,7 @@
     </EditText>
 
     <TextView
-        android:id="@+id/amountTxt"
+        android:id="@+id/transfer_amount_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
@@ -78,14 +78,14 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/amountTxt"
+        app:layout_constraintTop_toBottomOf="@id/transfer_amount_text"
         android:autofillHints="money">
 
     </EditText>
 
 
     <TextView
-        android:id="@+id/noteTxt"
+        android:id="@+id/note_transfer_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
@@ -117,14 +117,14 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/noteTxt"
+        app:layout_constraintTop_toBottomOf="@id/note_transfer_text"
         android:autofillHints="note">
 
     </EditText>
 
 
     <LinearLayout
-        android:id="@+id/linear1"
+        android:id="@+id/linear_transfer_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -170,13 +170,13 @@
 
 
     <LinearLayout
-        android:id="@+id/linear2"
+        android:id="@+id/linear_transfer_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear1">
+        app:layout_constraintTop_toBottomOf="@id/linear_transfer_1">
 
 
         <TextView
@@ -227,7 +227,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear2"
+        app:layout_constraintTop_toBottomOf="@id/linear_transfer_2"
 
         >
 

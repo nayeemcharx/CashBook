@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cashbook.R
-import com.example.cashbook.fragments.History
+import com.example.cashbook.fragments.historydata.HistoryData
 
-class HistoryAdapter(private val item:ArrayList<History>): RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+class HistoryAdapter(private val item:ArrayList<HistoryData>): RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
     class ViewHolder(val constraintLayout: ConstraintLayout) :
         RecyclerView.ViewHolder(constraintLayout)
 

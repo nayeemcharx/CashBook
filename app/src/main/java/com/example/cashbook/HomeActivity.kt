@@ -1,5 +1,6 @@
 package com.example.cashbook
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
@@ -9,6 +10,7 @@ import com.example.cashbook.fragments.TransferFragment
 import com.example.cashbook.fragments.WithdrawFragment
 import com.example.cashbook.fragments.adapters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
 
@@ -17,10 +19,17 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if(FirebaseAuth.getInstance().currentUser==null)
+        {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         setContentView(R.layout.activity_home)
         viewPager=findViewById(R.id.viewPager)
         tabs=findViewById(R.id.tabs)
         setUpTabs()
+        viewPager.offscreenPageLimit=4
         if(intent.getBooleanExtra("history?",false))
             viewPager.currentItem=3
     }
