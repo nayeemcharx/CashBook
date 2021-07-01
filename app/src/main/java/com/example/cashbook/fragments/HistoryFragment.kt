@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.cashbook.*
 import com.example.cashbook.fragments.adapters.HistoryAdapter
+import com.example.cashbook.fragments.historydata.ItemSpaceDecoration
 import com.example.cashbook.fragments.historydata.HistoryData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -45,6 +46,7 @@ class HistoryFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
 
         itemRecyclerView = view.findViewById(R.id.history_items)
+        itemRecyclerView.addItemDecoration(ItemSpaceDecoration(3))
         refresh = view.findViewById(R.id.swipTorefresh)
         refresh.isRefreshing=true
         updateItemViews()
