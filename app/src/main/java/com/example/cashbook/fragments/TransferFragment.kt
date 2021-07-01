@@ -304,17 +304,32 @@ class TransferFragment : Fragment() {
         db.collection("Tokens").document(receiver).get().addOnSuccessListener {
             if (it.exists())
             {
-                val token=it["token"].toString().trim()
-                val to = JSONObject()
-                val data = JSONObject()
-                Log.d("testt",":p")
+                val token=it["token"]
+                if(token!=null)
+                {
+                    val stringToken=token.toString().trim()
+                    if(stringToken!="nun")
+                    {
+                        val to = JSONObject()
+                        val data = JSONObject()
+                        Log.d("testt",":p")
 
-                data.put("title", "Cashbook")
-                data.put("message", message)
+                        data.put("title", "Cashbook")
+                        data.put("message", message)
 
-                to.put("to", token)
-                to.put("data", data)
-                sendNotification(to)
+                        to.put("to", stringToken)
+                        to.put("data", data)
+                        sendNotification(to)
+                    }
+                    else
+                    {
+                        Log.d("testtt","nun token")
+                    }
+                }
+                else
+                {
+                    Log.d("testtt","null token")
+                }
             }
             else
             {
