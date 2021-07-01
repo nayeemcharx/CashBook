@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,7 @@ class ProfileFragment : Fragment()
     private lateinit var spentMoney:TextView
     private lateinit var receivedMoney:TextView
     private lateinit var withdrawnMoney:TextView
+    private lateinit var rickroll:TextView
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +53,8 @@ class ProfileFragment : Fragment()
         spentMoney=view.findViewById(R.id.spent_money)
         receivedMoney=view.findViewById(R.id.received_money)
         withdrawnMoney=view.findViewById(R.id.withdraw_money)
-
+        rickroll=view.findViewById(R.id.rickroll)
+        rickroll.movementMethod=LinkMovementMethod.getInstance()
 
         val currentUser = auth.currentUser
         val email:String = currentUser!!.email!!

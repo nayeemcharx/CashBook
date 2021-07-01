@@ -23,7 +23,7 @@
     <string name="transfer_month_text">Transferred</string>
     <string name="received_month_text">Received</string>
     <string name="withdraw_taka_message">You have withdrawn Tk.- in this month.</string>
-    <string name="rickroll">Monthly Transaction</string>
+    <string name="rickroll"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Monthly Transaction</a></string>
     <string name="signout_button_text">Sign out</string>
     <string name="transfer_img_desc">monthly Transfere</string>
     <string name="montly_with_img_desc">montly withdraw</string>
